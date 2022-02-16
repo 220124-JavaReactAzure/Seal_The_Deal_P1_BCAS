@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/")
 public class HomeServlet extends HttpServlet{
 
+	String name = null;
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
@@ -19,12 +21,24 @@ public class HomeServlet extends HttpServlet{
 		
 		resp.setContentType("text/html");
 	    PrintWriter out = resp.getWriter();
+	    
+	    out.println("<style>"
+	    		+ "body {"
+	    		+ "background-image: url('https://ih1.redbubble.net/image.291419102.1980/st,small,507x507-pad,600x600,f8f8f8.u3.jpg');"
+	    		+ "background-repeat: no-repeat;"
+	    		+ "background-attachment: fixed;"
+	    		+ "background-size: contain;"
+	    		+ "background-position: center;"
+	    		+ "background-color: grey;"
+	    		+ "}"
+	    		+ "</style>");
+	    
 	    out.println("<HTML>"
 	    		+ "<BODY>"
-	    		+ "<FORM METHOD=GET>Username: "
+	    		+ "<FORM METHOD=POST>Username: "
 	    		+ "<INPUT TYPE=TEXT NAME=\"username\">"
 	    		+ "<P>"
-	    		+ "<FORM METHOD=GET>Password: "
+	    		+ "<FORM METHOD=POST>Password: "
 	    		+ "<INPUT TYPE=PASSWORD NAME=\"password\">"
 	    		+ "<P>"
 	    		+ "<INPUT TYPE=SUBMIT>"
@@ -34,7 +48,7 @@ public class HomeServlet extends HttpServlet{
 	    
 	    
 
-	    String name = req.getParameter("username");
+	    //String name = req.getParameter("username");
 	    out.println("<HTML>");
 	    out.println("<HEAD><TITLE>Hello, " + name + "</TITLE></HEAD>");
 	    out.println("<BODY>");
@@ -45,5 +59,16 @@ public class HomeServlet extends HttpServlet{
 	    		+ "<input type=\"submit\" value=\"Registration\">"
 	    		+ "</form>");
 	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		name = req.getParameter("username");
+		resp.setContentType("text/html");
+		PrintWriter out = resp.getWriter();
+		out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/\">");
+
+	}
+	
 	
 }
