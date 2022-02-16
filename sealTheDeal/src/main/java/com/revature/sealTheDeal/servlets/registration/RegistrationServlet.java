@@ -24,7 +24,7 @@ public class RegistrationServlet extends HttpServlet{
 	    		+ "background-attachment: fixed;"
 	    		+ "background-size: contain;"
 	    		+ "background-position: center;"
-	    		+ "background-color: black;"
+	    		+ "background-color: grey;"
 	    		+ "}"
 	    		+ "</style>");
 	    out.println("<form action=\"http://localhost:8080/sealTheDeal/registration/weddingUser/\">"

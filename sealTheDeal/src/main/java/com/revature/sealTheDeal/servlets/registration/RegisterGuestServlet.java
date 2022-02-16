@@ -24,7 +24,7 @@ public class RegisterGuestServlet extends HttpServlet{
 	    		+ "background-attachment: fixed;"
 	    		+ "background-size: contain;"
 	    		+ "background-position: center;"
-	    		+ "background-color: black;"
+	    		+ "background-color: grey;"
 	    		+ "}"
 	    		+ "</style>");
 		
