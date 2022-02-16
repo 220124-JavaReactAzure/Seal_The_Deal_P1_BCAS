@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.revature.sealTheDeal.dao.EmployeeDAO;
+import com.revature.sealTheDeal.models.Employee;
+import com.revature.sealTheDeal.services.EmployeeServices;
+
 @WebServlet("/registration/employee/")
 public class RegisterEmployeeServlet extends HttpServlet{
 	
@@ -101,6 +105,12 @@ public class RegisterEmployeeServlet extends HttpServlet{
 		}else if(!(password.equals(passwordVerify))) {
 			message = "PASSWORDS MUCH MATCH";
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/employee/\">");
+		}else {
+			Employee newEmployee = new Employee(username,firstName,lastName,password,email,1,employeeID,true);
+			EmployeeDAO empDAO = new EmployeeDAO();
+			EmployeeServices empServ = new EmployeeServices(empDAO);
+			empServ.addEmployee(newEmployee);
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/\">");
 		}
 		
 		

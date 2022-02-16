@@ -24,7 +24,7 @@ public class ContextLoaderListener implements ServletContextListener {
 		EmployeeHomeServlet employeeHomeServlet = new EmployeeHomeServlet(employeeServices, mapper);
 
 		ServletContext context = sce.getServletContext();
-		context.addServlet("EmployeeHomeServlet", employeeHomeServlet).addMapping("/employees/*");
+		//context.addServlet("EmployeeHomeServlet", employeeHomeServlet).addMapping("/employees/*");
 
 	}
 

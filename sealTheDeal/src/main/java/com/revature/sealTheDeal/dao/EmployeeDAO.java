@@ -1,11 +1,11 @@
 package com.revature.sealTheDeal.dao;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.mapping.List;
 import org.hibernate.query.Query;
 
 import com.revature.sealTheDeal.models.Employee;
@@ -16,14 +16,16 @@ public class EmployeeDAO {
 	public boolean addEmployee(Employee employee) {
 		try {
 			Session session = HibernateUtil.getSession();
+			Transaction transaction = session.beginTransaction();
 			session.save(employee);
-			return true;
-		} catch (HibernateException e) {
-			e.printStackTrace();
-			return false;
-		} finally {
+	    	transaction.commit();
 			HibernateUtil.closeSession();
-		}
+			return true;
+		} catch (HibernateException | IOException e) {
+			e.printStackTrace();
+			HibernateUtil.closeSession();
+			return false;
+		} 
 	}
 
 	public List<Employee> getAllEmployees() {
@@ -44,7 +46,7 @@ public class EmployeeDAO {
 			Session session = HibernateUtil.getSession();
 			Employee employee = session.get(Employee.class, username);
 			return employee;
-		} catch (HibernateException e) {
+		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
 			return null;
 		} finally {
@@ -59,7 +61,7 @@ public class EmployeeDAO {
 			Transaction transaction = session.beginTransaction();
 			session.merge(employee);
 			transaction.commit();
-		} catch (HibernateException e) {
+		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
 		} finally {
 			HibernateUtil.closeSession();
@@ -76,7 +78,7 @@ public class EmployeeDAO {
 			Query query = session.createQuery("update userinfo set username= :username," + " pass= pass,"
 					+ " email= :email," + " first_name= :firstName," + " last_name= :lastName,"
 					+ " accounttype=:accountype where accounttypes = ???");
-			query.setParameter("email", employee.getEmail());
+			query.setParameter("email", employee.getUser_email());
 			query.executeUpdate();
 			transaction.commit();
 		} catch (HibernateException | IOException e) {
