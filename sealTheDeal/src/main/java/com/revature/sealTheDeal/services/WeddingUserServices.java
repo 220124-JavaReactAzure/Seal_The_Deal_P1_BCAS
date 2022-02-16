@@ -1,6 +1,7 @@
 package com.revature.sealTheDeal.services;
 
-import org.hibernate.mapping.List;
+
+import java.util.List;
 
 import com.revature.sealTheDeal.dao.GuestDAO;
 import com.revature.sealTheDeal.dao.WeddingUserDAO;
@@ -19,10 +20,10 @@ public class WeddingUserServices {
 	}
 
 	public List<WeddingUser> getAllWeddingUsers() {
-		return weddingUserDAO.getAllWeddingUsers();
+		return weddingUserDAO.getAllWeddingUser();
 	}
 
-	public Guest getGuestByUsername(String username) {
+	public WeddingUser getGuestByUsername(String username) {
 
 		return weddingUserDAO.getWeddingUserByUsername(username);
 	}
@@ -36,4 +37,4 @@ public class WeddingUserServices {
 	}
 }
 
-}
+
