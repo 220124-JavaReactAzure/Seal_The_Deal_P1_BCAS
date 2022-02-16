@@ -12,6 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/registration/guest/")
 public class RegisterGuestServlet extends HttpServlet{
 	
+	String weddingName = null;
+	String firstName = null;
+	String lastName = null;
+	String email = null;
+	String username = null;
+	String password = null;
+	String passwordVerify = null;
+	String message = null;
+	
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -27,9 +37,51 @@ public class RegisterGuestServlet extends HttpServlet{
 	    		+ "background-color: grey;"
 	    		+ "}"
 	    		+ "</style>");
+	    
+	    out.println("<h3>Register New Employee</h3>");
+	    if(message != null) {
+	    	out.println("<p style=\"color:red;\">"+message+"</p>");
+	    }
+	    out.println("<HTML>"
+	    		+ "<BODY>"
+	    		+ "<FORM METHOD=POST>Wedding Party Name: "
+	    		+ "<INPUT TYPE=TEXT NAME=\"employee_id\">"
+	    		+ "<P>"
+	    		+ "<FORM METHOD=POST>First Name: "
+	    		+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" //blank space for spacing on website
+	    		+ "<INPUT TYPE=TEXT NAME=\"first_name\">"
+	    		+ "<P>"
+	    		+ "<FORM METHOD=POST>Last Name: "
+	    		+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" //blank space for spacing on website
+	    		+ "<INPUT TYPE=TEXT NAME=\"last_name\">"
+	    		+ "<P>"
+	    		+ "<FORM METHOD=POST>Email: "
+	    		+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" //blank space for spacing on website
+	    		+ "<INPUT TYPE=TEXT NAME=\"email\">"
+	    		+ "<P>"
+	    		+ "<FORM METHOD=POST>Username: "
+	    		+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" //blank space for spacing on website
+	    		+ "<INPUT TYPE=TEXT NAME=\"username\">"
+	    		+ "<P>"
+	    		+ "<FORM METHOD=POST>Password: "
+	    		+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" //blank space for spacing on website
+	    		+ "<INPUT TYPE=PASSWORD NAME=\"password\">"
+	    		+ "<P>"
+	    		+ "<FORM METHOD=POST>Re-Enter Password: "
+	    		+ "&nbsp;&nbsp;&nbsp;" //blank space for spacing on website
+	    		+ "<INPUT TYPE=PASSWORD NAME=\"verify_password\">"
+	    		+ "<P>"
+	    		+ "<INPUT TYPE=SUBMIT>"
+	    		+ "</FORM>"
+	    		+ "</BODY>"
+	    		+ "</HTML>");
 		
 		
-		resp.getWriter().write("<h1>TestServlet works</h1>");
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 	}
 
 }
