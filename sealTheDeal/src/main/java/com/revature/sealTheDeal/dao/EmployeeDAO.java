@@ -18,7 +18,7 @@ public class EmployeeDAO {
 			Session session = HibernateUtil.getSession();
 			session.save(employee);
 			return true;
-		} catch (HibernateException | IOException e) {
+		} catch (HibernateException e) {
 			e.printStackTrace();
 			return false;
 		} finally {
@@ -29,7 +29,7 @@ public class EmployeeDAO {
 	public List<Employee> getAllEmployees() {
 		try {
 			Session session = HibernateUtil.getSession();
-			List<Employee> directors = session.createQuery("FROM employeeinfo").list();
+			List<Employee> employee = session.createQuery("FROM employeeinfo").list();
 			return employee;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -39,12 +39,12 @@ public class EmployeeDAO {
 		}
 	}
 
-	public Employee getEmployeeById(int id) {
+	public Employee getEmployeeByUsername(String username) {
 		try {
 			Session session = HibernateUtil.getSession();
-			Employee director = session.get(Employee.class, id);
-			return director;
-		} catch (HibernateException | IOException e) {
+			Employee employee = session.get(Employee.class, username);
+			return employee;
+		} catch (HibernateException e) {
 			e.printStackTrace();
 			return null;
 		} finally {
@@ -52,14 +52,14 @@ public class EmployeeDAO {
 		}
 	}
 
-	public void updateDirectorWithSessionMethod(Employee employee) {
+	public void updateEmployeeWithSessionMethod(Employee employee) {
 		try {
 			Session session = HibernateUtil.getSession();
 			// Updates and Deletes always start with a transaction and end with a commit
 			Transaction transaction = session.beginTransaction();
 			session.merge(employee);
 			transaction.commit();
-		} catch (HibernateException | IOException e) {
+		} catch (HibernateException e) {
 			e.printStackTrace();
 		} finally {
 			HibernateUtil.closeSession();
@@ -73,7 +73,7 @@ public class EmployeeDAO {
 			Session session = HibernateUtil.getSession();
 			Transaction transaction = session.beginTransaction();
 
-			Query query = session.createQuery("update Employee set username= :username," + " pass= pass,"
+			Query query = session.createQuery("update userinfo set username= :username," + " pass= pass,"
 					+ " email= :email," + " first_name= :firstName," + " last_name= :lastName,"
 					+ " accounttype=:accountype where accounttypes = ???");
 			query.setParameter("email", employee.getEmail());
