@@ -9,11 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.sealTheDeal.dao.EmployeeDAO;
 import com.revature.sealTheDeal.models.Employee;
 import com.revature.sealTheDeal.services.EmployeeServices;
+import com.revature.sealTheDeal.services.UserServices;
 
-@WebServlet("/registration/employee/")
+//@WebServlet("/registration/employee/")
 public class RegisterEmployeeServlet extends HttpServlet{
 	
 	String employeeID = null;
@@ -25,7 +27,20 @@ public class RegisterEmployeeServlet extends HttpServlet{
 	String passwordVerify = null;
 	String message = null;
 	
+	UserServices userServices;
+	EmployeeServices employeeServices;
+	ObjectMapper mapper;
 	
+	
+	public RegisterEmployeeServlet(UserServices userServices, EmployeeServices employeeServices, ObjectMapper mapper) {
+		this.userServices = userServices;
+		this.employeeServices = employeeServices;
+		this.mapper = mapper;
+	}
+
+
+
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -96,16 +111,26 @@ public class RegisterEmployeeServlet extends HttpServlet{
 		
 		resp.setContentType("text/html");
 		PrintWriter out = resp.getWriter();
+		
 		if(employeeID.trim().isEmpty() || firstName.trim().isEmpty() || lastName.trim().isEmpty() || email.trim().isEmpty() || username.trim().isEmpty() || password.trim().isEmpty() || passwordVerify.trim().isEmpty()) {
 			message = "ALL FIELDS MUST BE FILLED TO REGISTER";
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/employee/\">");
-		}else if(Character.isLowerCase(firstName.charAt(0)) || Character.isLowerCase(lastName.charAt(0))) {
+		}
+		else if(Character.isLowerCase(firstName.charAt(0)) || Character.isLowerCase(lastName.charAt(0))) {
 			message = "THE FIRST LETTER OF YOUR FIRST AND LAST NAME MUST BE CAPITAL";
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/employee/\">");
-		}else if(!(password.equals(passwordVerify))) {
+		}
+		else if(!(password.equals(passwordVerify))) {
 			message = "PASSWORDS MUCH MATCH";
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/employee/\">");
-		}else {
+		}
+		//else if( checking username is unique )
+		//else if( checking email is unique )
+		
+		
+		//else if( checking employeeid exists )
+		//else if( checking employeeid is not taken )
+		else{
 			Employee newEmployee = new Employee(username,firstName,lastName,password,email,1,employeeID,true);
 			EmployeeDAO empDAO = new EmployeeDAO();
 			EmployeeServices empServ = new EmployeeServices(empDAO);

@@ -9,7 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/registration/guest/")
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.sealTheDeal.services.EmployeeServices;
+import com.revature.sealTheDeal.services.GuestServices;
+import com.revature.sealTheDeal.services.UserServices;
+import com.revature.sealTheDeal.services.WeddingUserServices;
+
+
 public class RegisterGuestServlet extends HttpServlet{
 	
 	String weddingName = null;
@@ -21,7 +27,19 @@ public class RegisterGuestServlet extends HttpServlet{
 	String passwordVerify = null;
 	String message = null;
 	
+	UserServices userServices;
+	WeddingUserServices weddingUserServices;
+	GuestServices guestServices;
+	ObjectMapper mapper;
 	
+	public RegisterGuestServlet(UserServices userServices, WeddingUserServices weddingUserServices,
+			GuestServices guestServices, ObjectMapper mapper) {
+		this.userServices = userServices;
+		this.weddingUserServices = weddingUserServices;
+		this.guestServices = guestServices;
+		this.mapper = mapper;
+	}
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -45,7 +63,7 @@ public class RegisterGuestServlet extends HttpServlet{
 	    out.println("<HTML>"
 	    		+ "<BODY>"
 	    		+ "<FORM METHOD=POST>Wedding Party Name: "
-	    		+ "<INPUT TYPE=TEXT NAME=\"employee_id\">"
+	    		+ "<INPUT TYPE=TEXT NAME=\"wedding_id\">"
 	    		+ "<P>"
 	    		+ "<FORM METHOD=POST>First Name: "
 	    		+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" //blank space for spacing on website

@@ -9,7 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/registration/weddingUser/")
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.sealTheDeal.services.UserServices;
+import com.revature.sealTheDeal.services.WeddingUserServices;
+
+
 public class RegisterWeddingUserServlet extends HttpServlet{
 	
 	String weddingName = null;
@@ -25,7 +29,18 @@ public class RegisterWeddingUserServlet extends HttpServlet{
 	String passwordVerify = null;
 	String message = null;
 	
+	UserServices userServices;
+	WeddingUserServices weddingUserServices;
+	ObjectMapper mapper;
 	
+	
+	public RegisterWeddingUserServlet(UserServices userServices, WeddingUserServices weddingUserServices,
+			ObjectMapper mapper) {
+		this.userServices = userServices;
+		this.weddingUserServices = weddingUserServices;
+		this.mapper = mapper;
+	}
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		

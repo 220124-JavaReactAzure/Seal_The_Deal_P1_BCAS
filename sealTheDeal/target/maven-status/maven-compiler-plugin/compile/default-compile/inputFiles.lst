@@ -2,7 +2,9 @@ C:\Users\silve\Desktop\coding stuff\seal_the_deal_p1_bcas\sealTheDeal\src\main\j
 C:\Users\silve\Desktop\coding stuff\seal_the_deal_p1_bcas\sealTheDeal\src\main\java\com\revature\sealTheDeal\servlets\employee\AddFloristsServlet.java
 C:\Users\silve\Desktop\coding stuff\seal_the_deal_p1_bcas\sealTheDeal\src\main\java\com\revature\sealTheDeal\servlets\registration\RegistrationServlet.java
 C:\Users\silve\Desktop\coding stuff\seal_the_deal_p1_bcas\sealTheDeal\src\main\java\com\revature\sealTheDeal\models\User.java
+C:\Users\silve\Desktop\coding stuff\seal_the_deal_p1_bcas\sealTheDeal\src\main\java\com\revature\sealTheDeal\services\UserServices.java
 C:\Users\silve\Desktop\coding stuff\seal_the_deal_p1_bcas\sealTheDeal\src\main\java\com\revature\sealTheDeal\servlets\weddingUser\ChooseVenuesServlet.java
+C:\Users\silve\Desktop\coding stuff\seal_the_deal_p1_bcas\sealTheDeal\src\main\java\com\revature\sealTheDeal\dao\UserDAO.java
 C:\Users\silve\Desktop\coding stuff\seal_the_deal_p1_bcas\sealTheDeal\src\main\java\com\revature\sealTheDeal\servlets\guest\ViewGiftRegistryServlet.java
 C:\Users\silve\Desktop\coding stuff\seal_the_deal_p1_bcas\sealTheDeal\src\main\java\com\revature\sealTheDeal\dao\WeddingUserDAO.java
 C:\Users\silve\Desktop\coding stuff\seal_the_deal_p1_bcas\sealTheDeal\src\main\java\com\revature\sealTheDeal\web\util\ContextLoaderListener.java
