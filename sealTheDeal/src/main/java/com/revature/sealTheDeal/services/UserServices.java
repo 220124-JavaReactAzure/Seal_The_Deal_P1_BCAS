@@ -10,7 +10,6 @@ public class UserServices {
 	}
 	
 	public boolean getByUsername(String username) {
-
 		return userDAO.getByUsername(username);
 	}
 

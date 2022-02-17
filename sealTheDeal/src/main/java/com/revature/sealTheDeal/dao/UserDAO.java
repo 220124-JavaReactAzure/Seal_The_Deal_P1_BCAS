@@ -28,10 +28,10 @@ public class UserDAO {
 		}
 	}
 
-	public boolean getByEmail(String email) {
+	public boolean getByEmail(String user_email) {
 		try {
 			Session session = HibernateUtil.getSession();
-			User user = session.get(User.class, email);
+			User user = session.get(User.class, user_email);
 			if(user == null) {
 				HibernateUtil.closeSession();
 				return false;
