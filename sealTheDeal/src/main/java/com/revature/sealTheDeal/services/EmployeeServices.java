@@ -1,6 +1,7 @@
 package com.revature.sealTheDeal.services;
 
-import org.hibernate.mapping.List;
+
+import java.util.List;
 
 import com.revature.sealTheDeal.dao.EmployeeDAO;
 import com.revature.sealTheDeal.models.Employee;

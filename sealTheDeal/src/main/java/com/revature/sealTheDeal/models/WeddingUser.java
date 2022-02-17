@@ -1,16 +1,51 @@
 package com.revature.sealTheDeal.models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "weddinginfo")
+@PrimaryKeyJoinColumn(name = "username")
 public class WeddingUser extends User {
 
+	@Column(name = "wedding_party_name")
 	private String weddingPartyName;
-	private String petTypeGroom;
-	private String petNameGroom;
-	private String petTypeBride;
-	private String petNameBride;
-	private int dayOfWedding;
-	private double weddingCost;
-	private User user;
 	
+	@Column(name = "pet_type_groom")
+	private String petTypeGroom;
+	
+	@Column(name = "pet_name_groom")
+	private String petNameGroom;
+	
+	@Column(name = "pet_type_bride")
+	private String petTypeBride;
+	
+	@Column(name = "pet_name_bride")
+	private String petNameBride;
+	
+	@Column(name = "day_of_wedding")
+	private int dayOfWedding;
+	
+	@Column(name = "wedding_cost")
+	private double weddingCost;
+	
+	public WeddingUser() {
+		
+	}
+	
+	public WeddingUser(String username, String firstName, String lastName, String pass, String user_email,
+			int accountType, String weddingPartyName, String petTypeGroom, String petNameGroom, String petTypeBride, String petNameBride, int dayOfWedding, double weddingCost) {
+		super(username, firstName, lastName, pass, user_email, accountType);
+		this.weddingPartyName = weddingPartyName;
+		this.petTypeGroom = petTypeGroom;
+		this.petNameGroom = petNameGroom;
+		this.petTypeBride = petTypeBride;
+		this.petNameBride = petNameBride;
+		this.dayOfWedding = dayOfWedding;
+		this.weddingCost = weddingCost;
+	}
 	public String getWeddingPartyName() {
 		return weddingPartyName;
 	}
@@ -66,18 +101,6 @@ public class WeddingUser extends User {
 	public void setWeddingCost(double weddingCost) {
 		this.weddingCost = weddingCost;
 	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Object getEmail() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 }

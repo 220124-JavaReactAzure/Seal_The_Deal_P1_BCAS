@@ -2,11 +2,11 @@ package com.revature.sealTheDeal.dao;
 
 
 import java.io.IOException;
+import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.mapping.List;
 import org.hibernate.query.Query;
 
 import com.revature.sealTheDeal.models.Employee;
@@ -20,7 +20,7 @@ public class GuestDAO {
 			Session session = HibernateUtil.getSession();
 			session.save(guest);
 			return true;
-		} catch (HibernateException e) {
+		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
 			return false;
 		} finally {
@@ -28,12 +28,12 @@ public class GuestDAO {
 		}
 	}
 
-	public List<Guest> getAllGuests() {
+	public List<?> getAllGuests() {
 		try {
 			Session session = HibernateUtil.getSession();
-			List<Guest> guest = session.createQuery("FROM userinfo").list();
+			 List<?> guest = session.createQuery("FROM userinfo").list();
 			return guest;
-		} catch (Exception e) {
+		} catch (Exception  e) {
 			e.printStackTrace();
 			return null;
 		} finally {
@@ -46,7 +46,7 @@ public class GuestDAO {
 			Session session = HibernateUtil.getSession();
 			Guest guest = session.get(Guest.class, username);
 			return guest;
-		} catch (HibernateException e) {
+		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
 			return null;
 		} finally {
@@ -61,7 +61,7 @@ public class GuestDAO {
 			Transaction transaction = session.beginTransaction();
 			session.merge(guest);
 			transaction.commit();
-		} catch (HibernateException e) {
+		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
 		} finally {
 			HibernateUtil.closeSession();
@@ -81,7 +81,7 @@ public class GuestDAO {
 			query.setParameter("username", guest.getUsername());
 			query.executeUpdate();
 			transaction.commit();
-		} catch (HibernateException e) {
+		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
 		} finally {
 			HibernateUtil.closeSession();
