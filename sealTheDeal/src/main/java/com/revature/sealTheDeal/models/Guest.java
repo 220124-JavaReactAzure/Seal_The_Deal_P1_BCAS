@@ -2,9 +2,10 @@ package com.revature.sealTheDeal.models;
 
 public class Guest extends User {
 
-	public Guest(String username, String firstName, String lastName, String pass, String user_email, int accountType) {
-		super(username, firstName, lastName, pass, user_email, accountType);
+	public Guest(String username, String firstName, String lastName, String password, String user_email, int accountType, String weddingName) {
+		super(username, firstName, lastName, password, user_email, accountType);
 		// TODO Auto-generated constructor stub
+	
 	}
 	private int guestId;
 	private String  weddingPartyName;
