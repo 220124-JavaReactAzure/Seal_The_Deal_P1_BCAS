@@ -22,7 +22,7 @@ import com.revature.sealTheDeal.services.WeddingUserServices;
 
 public class RegisterGuestServlet extends HttpServlet{
 	
-	String weddingName = null;
+	String weddingPartyName = null;
 	String firstName = null;
 	String lastName = null;
 	String email = null;
@@ -104,7 +104,7 @@ public class RegisterGuestServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		weddingName = req.getParameter("wedding_party_name");
+		weddingPartyName = req.getParameter("wedding_party_name");
 		firstName = req.getParameter("first_name");
 		lastName = req.getParameter("last_name");
 		email = req.getParameter("email");
@@ -115,26 +115,32 @@ public class RegisterGuestServlet extends HttpServlet{
 		resp.setContentType("text/html");
 		PrintWriter out = resp.getWriter();
 		
-		if(weddingName.trim().isEmpty() || firstName.trim().isEmpty() || lastName.trim().isEmpty() || email.trim().isEmpty() || username.trim().isEmpty() || password.trim().isEmpty() || passwordVerify.trim().isEmpty()) {
+		if(weddingPartyName.trim().isEmpty() || firstName.trim().isEmpty() || lastName.trim().isEmpty() || email.trim().isEmpty() || username.trim().isEmpty() || password.trim().isEmpty() || passwordVerify.trim().isEmpty()) {
 			message = "ALL FIELDS MUST BE FILLED TO REGISTER";
-			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registerguest/employee/\">");
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/guest/\">");
 		}
 		else if(Character.isLowerCase(firstName.trim().charAt(0)) || Character.isLowerCase(lastName.trim().charAt(0))) {
 			message = "THE FIRST LETTER OF YOUR FIRST AND LAST NAME MUST BE CAPITAL";
-			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registerguest/employee/\">");
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/guest/\">");
 		}
 		else if(!(password.equals(passwordVerify))) {
 			message = "PASSWORDS MUCH MATCH";
-			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registerguest/employee/\">");
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/guest/\">");
 		}
-		//else if( checking username is unique )
-		//else if( checking email is unique )
+		else if(userServices.getByUsername(username.trim())) {
+			message = "USERNAME ALREADY EXISTS";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/guest/\">");
+		}
+		else if(userServices.getByEmail(email.trim())) {
+			message = "EMAIL ALREADY EXISTS";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/guest/\">");
+		}
 		
 		
 		//else if( checking employeeid exists )
 		//else if( checking employeeid is not taken )
 		else{
-			Guest newGuest = new Guest(username,firstName,lastName,password,email,1,weddingName,true);
+			Guest newGuest = new Guest(username,firstName,lastName,password,email,2,weddingPartyName, "", "");
 			GuestDAO guestDAO = new GuestDAO();
 			GuestServices guestServ = new GuestServices(guestDAO);
 			guestServ.addGuest(newGuest);
