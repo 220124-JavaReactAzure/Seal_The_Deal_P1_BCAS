@@ -14,4 +14,8 @@ public class UserServices {
 		return userDAO.getByUsername(username);
 	}
 
+	public boolean getByEmail(String email) {
+		return userDAO.getByEmail(email);
+	}
+
 }

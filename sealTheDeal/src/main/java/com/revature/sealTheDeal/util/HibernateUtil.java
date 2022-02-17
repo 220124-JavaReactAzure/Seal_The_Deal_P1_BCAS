@@ -30,8 +30,8 @@ public class HibernateUtil {
 			configuration.setProperties(props);
 			// ONE ADDITIONAL STEP I NEED TO INCLUDE
 			configuration.addAnnotatedClass(User.class);
-			//configuration.addAnnotatedClass(Guest.class);
-			//configuration.addAnnotatedClass(WeddingUser.class);
+			configuration.addAnnotatedClass(Guest.class);
+			configuration.addAnnotatedClass(WeddingUser.class);
 			configuration.addAnnotatedClass(Employee.class);
 			
 
