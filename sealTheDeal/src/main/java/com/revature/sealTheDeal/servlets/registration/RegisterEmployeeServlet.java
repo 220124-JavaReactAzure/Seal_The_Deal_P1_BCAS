@@ -116,7 +116,7 @@ public class RegisterEmployeeServlet extends HttpServlet{
 			message = "ALL FIELDS MUST BE FILLED TO REGISTER";
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/employee/\">");
 		}
-		else if(Character.isLowerCase(firstName.charAt(0)) || Character.isLowerCase(lastName.charAt(0))) {
+		else if(Character.isLowerCase(firstName.trim().charAt(0)) || Character.isLowerCase(lastName.trim().charAt(0))) {
 			message = "THE FIRST LETTER OF YOUR FIRST AND LAST NAME MUST BE CAPITAL";
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/employee/\">");
 		}
@@ -124,8 +124,14 @@ public class RegisterEmployeeServlet extends HttpServlet{
 			message = "PASSWORDS MUCH MATCH";
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/employee/\">");
 		}
-		//else if( checking username is unique )
-		//else if( checking email is unique )
+		else if(userServices.getByUsername(username.trim())) {
+			message = "USERNAME ALREADY EXISTS";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/employee/\">");
+		}
+		else if(userServices.getByEmail(email.trim()) ) {
+			message = "EMAIL ALREADY EXISTS";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/employee/\">");
+		}
 		
 		
 		//else if( checking employeeid exists )
