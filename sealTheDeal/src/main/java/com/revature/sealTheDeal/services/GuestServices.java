@@ -14,7 +14,7 @@ public class GuestServices {
 		this.guestDAO = guestDAO;
 	}
 
-	public boolean addEmployee(Guest guest) {
+	public boolean addGuest(Guest guest) {
 		return guestDAO.addGuest(guest);
 	}
 
