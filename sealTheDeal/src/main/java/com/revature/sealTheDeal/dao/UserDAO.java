@@ -6,7 +6,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 import com.revature.sealTheDeal.models.User;
-import com.revature.sealTheDeal.models.WeddingUser;
 import com.revature.sealTheDeal.util.HibernateUtil;
 
 public class UserDAO {
@@ -15,12 +14,35 @@ public class UserDAO {
 		try {
 			Session session = HibernateUtil.getSession();
 			User user = session.get(User.class, username);
-			return true;
+			if(user == null) {
+				HibernateUtil.closeSession();
+				return false;
+			}else {
+				HibernateUtil.closeSession();
+				return true;
+			}
 		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
-			return false;
-		} finally {
 			HibernateUtil.closeSession();
+			return true;
+		}
+	}
+
+	public boolean getByEmail(String email) {
+		try {
+			Session session = HibernateUtil.getSession();
+			User user = session.get(User.class, email);
+			if(user == null) {
+				HibernateUtil.closeSession();
+				return false;
+			}else {
+				HibernateUtil.closeSession();
+				return true;
+			}
+		} catch (HibernateException | IOException e) {
+			e.printStackTrace();
+			HibernateUtil.closeSession();
+			return true;
 		}
 	}
 
