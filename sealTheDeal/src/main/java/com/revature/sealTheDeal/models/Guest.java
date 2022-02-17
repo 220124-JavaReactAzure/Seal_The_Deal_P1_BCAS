@@ -19,7 +19,7 @@ public class Guest extends User {
 	private String plusOne;
 	
 	public Guest() {
-		
+		super();
 	}
 	
 	public Guest(String username, String firstName, String lastName, String pass, String user_email, int accountType, String weddingPartyName, String foodType, String plusOne) {

@@ -128,7 +128,7 @@ public class RegisterEmployeeServlet extends HttpServlet{
 			message = "USERNAME ALREADY EXISTS";
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/employee/\">");
 		}
-		else if(userServices.getByEmail(email.trim()) ) {
+		else if(userServices.getByEmail(email.trim())) {
 			message = "EMAIL ALREADY EXISTS";
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/employee/\">");
 		}
