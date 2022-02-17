@@ -2,8 +2,12 @@ package com.revature.sealTheDeal.models;
 
 public class Guest extends User {
 
+	public Guest(String username, String firstName, String lastName, String password, String user_email, int accountType, String weddingName) {
+		super(username, firstName, lastName, password, user_email, accountType);
+		// TODO Auto-generated constructor stub
+	
+	}
 	private int guestId;
-	private User user;
 	private String  weddingPartyName;
 	
 	
@@ -12,12 +16,6 @@ public class Guest extends User {
 	}
 	public void setGuestId(int guestId) {
 		this.guestId = guestId;
-	}
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
 	}
 	public String getWeddingPartyName() {
 		return weddingPartyName;

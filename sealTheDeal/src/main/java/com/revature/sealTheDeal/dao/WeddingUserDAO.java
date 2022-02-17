@@ -2,11 +2,11 @@
 
 
 	import java.io.IOException;
+import java.util.List;
 
-	import org.hibernate.HibernateException;
+import org.hibernate.HibernateException;
 	import org.hibernate.Session;
 	import org.hibernate.Transaction;
-	import org.hibernate.mapping.List;
 	import org.hibernate.query.Query;
 
 	import com.revature.sealTheDeal.models.Employee;
@@ -21,7 +21,7 @@ import com.revature.sealTheDeal.util.HibernateUtil;
 				Session session = HibernateUtil.getSession();
 				session.save(weddingUser);
 				return true;
-			} catch (HibernateException e) {
+			} catch (HibernateException | IOException e) {
 				e.printStackTrace();
 				return false;
 			} finally {
@@ -47,7 +47,7 @@ import com.revature.sealTheDeal.util.HibernateUtil;
 				Session session = HibernateUtil.getSession();
 				WeddingUser weddingUser = session.get(WeddingUser.class, username);
 				return weddingUser;
-			} catch (HibernateException e) {
+			} catch (HibernateException | IOException e) {
 				e.printStackTrace();
 				return null;
 			} finally {
@@ -62,7 +62,7 @@ import com.revature.sealTheDeal.util.HibernateUtil;
 				Transaction transaction = session.beginTransaction();
 				session.merge(weddingUser);
 				transaction.commit();
-			} catch (HibernateException e) {
+			} catch (HibernateException | IOException e) {
 				e.printStackTrace();
 			} finally {
 				HibernateUtil.closeSession();
@@ -79,10 +79,10 @@ import com.revature.sealTheDeal.util.HibernateUtil;
 				Query query = session.createQuery("update userinfo set username= :username," + " pass= pass,"
 						+ " email= :email," + " first_name= :firstName," + " last_name= :lastName,"
 						+ " accounttype=:accountype where accounttypes = ???");
-				query.setParameter("email", weddingUser.getEmail());
+				query.setParameter("email", weddingUser.getUser_email());
 				query.executeUpdate();
 				transaction.commit();
-			} catch (HibernateException e) {
+			} catch (HibernateException | IOException e) {
 				e.printStackTrace();
 			} finally {
 				HibernateUtil.closeSession();

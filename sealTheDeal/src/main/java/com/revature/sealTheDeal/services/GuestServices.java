@@ -1,6 +1,7 @@
 package com.revature.sealTheDeal.services;
 
-import org.hibernate.mapping.List;
+
+import java.util.List;
 
 import com.revature.sealTheDeal.dao.EmployeeDAO;
 import com.revature.sealTheDeal.dao.GuestDAO;
@@ -13,12 +14,12 @@ public class GuestServices {
 		this.guestDAO = guestDAO;
 	}
 
-	public boolean addEmployee(Guest guest) {
+	public boolean addGuest(Guest guest) {
 		return guestDAO.addGuest(guest);
 	}
 
 	public List<Guest> getAllGuests() {
-		return guestDAO.getAllGuests();
+		return (List<Guest>) guestDAO.getAllGuests();
 	}
 
 	public Guest getGuestByUsername(String username) {

@@ -7,9 +7,17 @@ import javax.servlet.annotation.WebListener;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.sealTheDeal.dao.EmployeeDAO;
+import com.revature.sealTheDeal.dao.GuestDAO;
+import com.revature.sealTheDeal.dao.UserDAO;
+import com.revature.sealTheDeal.dao.WeddingUserDAO;
 import com.revature.sealTheDeal.services.EmployeeServices;
-
+import com.revature.sealTheDeal.services.GuestServices;
+import com.revature.sealTheDeal.services.UserServices;
+import com.revature.sealTheDeal.services.WeddingUserServices;
 import com.revature.sealTheDeal.servlets.employee.EmployeeHomeServlet;
+import com.revature.sealTheDeal.servlets.registration.RegisterEmployeeServlet;
+import com.revature.sealTheDeal.servlets.registration.RegisterGuestServlet;
+import com.revature.sealTheDeal.servlets.registration.RegisterWeddingUserServlet;
 
 @WebListener
 public class ContextLoaderListener implements ServletContextListener {
@@ -19,12 +27,32 @@ public class ContextLoaderListener implements ServletContextListener {
 
 		ObjectMapper mapper = new ObjectMapper();
 
+		UserDAO userDAO = new UserDAO();
+		UserServices userServices = new UserServices(userDAO);
+		
+		GuestDAO guestDAO = new GuestDAO();
+		GuestServices guestServices = new GuestServices(guestDAO);
+		
+		WeddingUserDAO weddingUserDAO = new WeddingUserDAO();
+		WeddingUserServices weddingUserServices = new WeddingUserServices(weddingUserDAO);
+		
 		EmployeeDAO employeeDAO = new EmployeeDAO();
 		EmployeeServices employeeServices = new EmployeeServices(employeeDAO);
-		EmployeeHomeServlet employeeHomeServlet = new EmployeeHomeServlet(employeeServices, mapper);
+		
+		
+		RegisterEmployeeServlet registerEmployeeServlet = new RegisterEmployeeServlet(userServices, employeeServices, mapper);
+		RegisterGuestServlet registerGuestServlet = new RegisterGuestServlet(userServices, weddingUserServices, guestServices, mapper);
+		RegisterWeddingUserServlet registerWeddingUserServlet = new RegisterWeddingUserServlet(userServices, weddingUserServices, mapper);
+		
+		//EmployeeHomeServlet employeeHomeServlet = new EmployeeHomeServlet(employeeServices, mapper);
 
 		ServletContext context = sce.getServletContext();
-		context.addServlet("EmployeeHomeServlet", employeeHomeServlet).addMapping("/employees/*");
+		context.addServlet("RegisterEmployeeServlet", registerEmployeeServlet).addMapping("/registration/employee/");
+		context.addServlet("RegisterGuestServlet", registerGuestServlet).addMapping("/registration/guest/");
+		context.addServlet("RegisterWeddingUserServlet", registerWeddingUserServlet).addMapping("/registration/weddingUser/");
+		
+		
+		//context.addServlet("EmployeeHomeServlet", employeeHomeServlet).addMapping("/employees/*");
 
 	}
 
