@@ -48,6 +48,7 @@ public class EmployeeDAO {
 		try {
 			Session session = HibernateUtil.getSession();
 			Employee employee = session.get(Employee.class, username);
+			
 			return employee;
 		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
