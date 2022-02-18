@@ -15,6 +15,11 @@ import com.revature.sealTheDeal.services.GuestServices;
 import com.revature.sealTheDeal.services.UserServices;
 import com.revature.sealTheDeal.services.WeddingUserServices;
 import com.revature.sealTheDeal.servlets.HomeServlet;
+import com.revature.sealTheDeal.servlets.employee.AddCaterersServlet;
+import com.revature.sealTheDeal.servlets.employee.AddFloristsServlet;
+import com.revature.sealTheDeal.servlets.employee.AddMusiciansServlet;
+import com.revature.sealTheDeal.servlets.employee.AddPhotographersServlet;
+import com.revature.sealTheDeal.servlets.employee.AddVenuesServlet;
 import com.revature.sealTheDeal.servlets.employee.EmployeeHomeServlet;
 import com.revature.sealTheDeal.servlets.registration.RegisterEmployeeServlet;
 import com.revature.sealTheDeal.servlets.registration.RegisterGuestServlet;
@@ -44,17 +49,22 @@ public class ContextLoaderListener implements ServletContextListener {
 		RegisterEmployeeServlet registerEmployeeServlet = new RegisterEmployeeServlet(userServices, employeeServices, mapper);
 		RegisterGuestServlet registerGuestServlet = new RegisterGuestServlet(userServices, weddingUserServices, guestServices, mapper);
 		RegisterWeddingUserServlet registerWeddingUserServlet = new RegisterWeddingUserServlet(userServices, weddingUserServices, mapper);
+		AddCaterersServlet addCaterersServlet = new AddCaterersServlet(employeeServices, mapper);
+		AddFloristsServlet addFloristsServlet = new AddFloristsServlet(employeeServices, mapper);
+		AddMusiciansServlet addMusiciansServlet = new AddMusiciansServlet(employeeServices, mapper);
+		AddVenuesServlet addVenuesServlet = new AddVenuesServlet(employeeServices, mapper);
+		AddPhotographersServlet addPhotographersServlet = new AddPhotographersServlet(employeeServices, mapper);
 		
-		//EmployeeHomeServlet employeeHomeServlet = new EmployeeHomeServlet(employeeServices, mapper);
-
 		ServletContext context = sce.getServletContext();
 		context.addServlet("HomeServlet", homeServlet).addMapping("/");
 		context.addServlet("RegisterEmployeeServlet", registerEmployeeServlet).addMapping("/registration/employee/");
 		context.addServlet("RegisterGuestServlet", registerGuestServlet).addMapping("/registration/guest/");
 		context.addServlet("RegisterWeddingUserServlet", registerWeddingUserServlet).addMapping("/registration/weddingUser/");
-		
-		
-		//context.addServlet("EmployeeHomeServlet", employeeHomeServlet).addMapping("/employees/*");
+		context.addServlet("AddCaterersServlet", addCaterersServlet).addMapping("/employeeHome/addCaterers/");
+		context.addServlet("AddFloristsServlet", addFloristsServlet).addMapping("/employeeHome/addFlorists/");
+		context.addServlet("AddMusiciansServlet", addMusiciansServlet).addMapping("/employeeHome/addMusicians/");
+		context.addServlet("AddPhotographersServlet", addPhotographersServlet).addMapping("/employeeHome/addPhotographers/");
+		context.addServlet("AddVenuesServlet", addVenuesServlet).addMapping("/employeeHome/addVenues/");
 
 	}
 

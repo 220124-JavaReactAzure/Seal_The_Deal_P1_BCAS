@@ -1,5 +1,18 @@
 package com.revature.sealTheDeal.servlets.employee;
 
-public class AddPhotographersServlet {
+import javax.servlet.http.HttpServlet;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.sealTheDeal.services.EmployeeServices;
+
+public class AddPhotographersServlet extends HttpServlet {
+
+	EmployeeServices employeeServices;
+	ObjectMapper mapper;
+
+	public AddPhotographersServlet(EmployeeServices employeeServices, ObjectMapper mapper) {
+		this.employeeServices = employeeServices;
+		this.mapper = mapper;
+	}
 
 }

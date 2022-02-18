@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import com.revature.sealTheDeal.models.Booking;
 import com.revature.sealTheDeal.models.Employee;
 import com.revature.sealTheDeal.models.User;
 import com.revature.sealTheDeal.util.HibernateUtil;
@@ -21,14 +22,14 @@ public class EmployeeDAO {
 			Session session = HibernateUtil.getSession();
 			Transaction transaction = session.beginTransaction();
 			session.save(employee);
-	    	transaction.commit();
+			transaction.commit();
 			HibernateUtil.closeSession();
 			return true;
 		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
 			HibernateUtil.closeSession();
 			return false;
-		} 
+		}
 	}
 
 	public List<Employee> getAllEmployees() {
@@ -78,15 +79,10 @@ public class EmployeeDAO {
 			Session session = HibernateUtil.getSession();
 			Transaction transaction = session.beginTransaction();
 
-			Query query = session.createQuery("update Employee set"
-					+ " username= :username,"
-					+ " pass= :pass,"
-					+ " first_name= :firstName,"
-					+ " last_name= :lastName,"
-					+ " user_email= :email,"
-					+ " account_type=:accountype,"
-					+ " is_account_taken=:isAcountTaken"
-					+ " where employee_id = :employeeID");
+			Query query = session.createQuery(
+					"update Employee set" + " username= :username," + " pass= :pass," + " first_name= :firstName,"
+							+ " last_name= :lastName," + " user_email= :email," + " account_type=:accountype,"
+							+ " is_account_taken=:isAcountTaken" + " where employee_id = :employeeID");
 			query.setParameter("username", employee.getUsername());
 			query.setParameter("pass", employee.getPass());
 			query.setParameter("firstName", employee.getFirstName());
@@ -101,7 +97,7 @@ public class EmployeeDAO {
 		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
 			HibernateUtil.closeSession();
-		} 
+		}
 
 	}
 
@@ -115,9 +111,8 @@ public class EmployeeDAO {
 			query.executeUpdate();
 			transaction.commit();
 			HibernateUtil.closeSession();
-			
-		} 
-		catch (HibernateException | IOException e) {
+
+		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
 			HibernateUtil.closeSession();
 		}
@@ -130,21 +125,53 @@ public class EmployeeDAO {
 			String sql = "from Employee where employee_id = '" + employeeID + "'";
 			Query<Employee> query = session.createQuery(sql);
 			Employee results = query.getSingleResult();
-			if(results != null) {
+			if (results != null) {
 				HibernateUtil.closeSession();
 				return results;
-			}else {
+			} else {
 				HibernateUtil.closeSession();
 				return null;
 			}
-		} catch(NoResultException e) {
+		} catch (NoResultException e) {
 			HibernateUtil.closeSession();
 			return null;
-		}
-		catch (HibernateException | IOException e) {
+		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
 			HibernateUtil.closeSession();
 			return null;
+		}
+	}
+
+	public boolean addBooking(Booking booking) {
+		try {
+			Session session = HibernateUtil.getSession();
+			Transaction transaction = session.beginTransaction();
+			session.save(booking);
+			transaction.commit();
+			HibernateUtil.closeSession();
+			return true;
+		} catch (HibernateException | IOException e) {
+			e.printStackTrace();
+			HibernateUtil.closeSession();
+			return false;
+		}
+	}
+
+	public boolean getByServiceName(String serviceName) {
+		try {
+			Session session = HibernateUtil.getSession();
+			Booking booking = session.get(Booking.class, serviceName);
+			if(booking == null) {
+				HibernateUtil.closeSession();
+				return false;
+			}else {
+				HibernateUtil.closeSession();
+				return true;
+			}
+		} catch (HibernateException | IOException e) {
+			e.printStackTrace();
+			HibernateUtil.closeSession();
+			return true;
 		}
 	}
 }
