@@ -134,11 +134,11 @@ public class RegisterGuestServlet extends HttpServlet{
 		//else if( checking employeeid exists )
 		//else if( checking employeeid is not taken )
 		else{
-			Guest newGuest = new Guest(username,firstName,lastName,password,email,1,weddingName,true);
-			GuestDAO guestDAO = new GuestDAO();
-			GuestServices guestServ = new GuestServices(guestDAO);
-			guestServ.addGuest(newGuest);
-			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/\">");
+			//Guest newGuest = new Guest(username,firstName,lastName,password,email,1,weddingName,true);
+			//GuestDAO guestDAO = new GuestDAO();
+			//GuestServices guestServ = new GuestServices(guestDAO);
+			//guestServ.addGuest(newGuest);
+			//out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/\">");
 		}
 		
 		
