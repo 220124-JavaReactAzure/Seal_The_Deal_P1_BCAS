@@ -52,5 +52,23 @@ public class UserDAO {
 		}
 	}
 
+	public User returnByUsername(String username) {
+		try {
+			Session session = HibernateUtil.getSession();
+			User user = session.get(User.class, username);
+			if(user == null) {
+				HibernateUtil.closeSession();
+				return null;
+			}else {
+				HibernateUtil.closeSession();
+				return user;
+			}
+		} catch (HibernateException | IOException e) {
+			e.printStackTrace();
+			HibernateUtil.closeSession();
+			return null;
+		}
+	}
+
 	
 }
