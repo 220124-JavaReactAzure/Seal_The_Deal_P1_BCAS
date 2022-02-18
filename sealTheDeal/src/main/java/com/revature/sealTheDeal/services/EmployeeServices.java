@@ -17,6 +17,19 @@ public class EmployeeServices {
 	public boolean addEmployee(Employee employee) {
 		return employeeDAO.addEmployee(employee);
 	}
+	
+	public boolean verifyByEmployeeID(String employeeID) {
+		Employee testEmployee = employeeDAO.getEmployeeByEmployeeID(employeeID);
+		if(testEmployee == null) {
+			return true;
+		}else {
+			if(testEmployee.isAccountTaken()) {
+				return true;
+			}else {
+				return false;
+			}
+		}
+	}
 
 	public List<Employee> getAllEmployees() {
 		return employeeDAO.getAllEmployees();
@@ -29,6 +42,10 @@ public class EmployeeServices {
 
 	public void updateEmployeeWithSessionMethod(Employee employee) {
 		employeeDAO.updateEmployeeWithSessionMethod(employee);
+	}
+	
+	public void deleteByEmployeeID(String employeeID) {
+		employeeDAO.deleteByEmployeeID(employeeID);
 	}
 
 	public void updateEmployeeWithHQL(Employee employee) {
