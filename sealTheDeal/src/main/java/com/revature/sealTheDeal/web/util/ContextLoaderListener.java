@@ -14,6 +14,7 @@ import com.revature.sealTheDeal.services.EmployeeServices;
 import com.revature.sealTheDeal.services.GuestServices;
 import com.revature.sealTheDeal.services.UserServices;
 import com.revature.sealTheDeal.services.WeddingUserServices;
+import com.revature.sealTheDeal.servlets.HomeServlet;
 import com.revature.sealTheDeal.servlets.employee.EmployeeHomeServlet;
 import com.revature.sealTheDeal.servlets.registration.RegisterEmployeeServlet;
 import com.revature.sealTheDeal.servlets.registration.RegisterGuestServlet;
@@ -39,7 +40,7 @@ public class ContextLoaderListener implements ServletContextListener {
 		EmployeeDAO employeeDAO = new EmployeeDAO();
 		EmployeeServices employeeServices = new EmployeeServices(employeeDAO);
 		
-		
+		HomeServlet homeServlet = new HomeServlet(userServices,mapper);
 		RegisterEmployeeServlet registerEmployeeServlet = new RegisterEmployeeServlet(userServices, employeeServices, mapper);
 		RegisterGuestServlet registerGuestServlet = new RegisterGuestServlet(userServices, weddingUserServices, guestServices, mapper);
 		RegisterWeddingUserServlet registerWeddingUserServlet = new RegisterWeddingUserServlet(userServices, weddingUserServices, mapper);
@@ -47,6 +48,7 @@ public class ContextLoaderListener implements ServletContextListener {
 		//EmployeeHomeServlet employeeHomeServlet = new EmployeeHomeServlet(employeeServices, mapper);
 
 		ServletContext context = sce.getServletContext();
+		context.addServlet("HomeServlet", homeServlet).addMapping("/");
 		context.addServlet("RegisterEmployeeServlet", registerEmployeeServlet).addMapping("/registration/employee/");
 		context.addServlet("RegisterGuestServlet", registerGuestServlet).addMapping("/registration/guest/");
 		context.addServlet("RegisterWeddingUserServlet", registerWeddingUserServlet).addMapping("/registration/weddingUser/");
