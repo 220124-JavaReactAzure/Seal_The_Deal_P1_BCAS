@@ -55,4 +55,9 @@ public class EmployeeServices {
 	public void updateEmployeeWithHQL(Employee employee) {
 		employeeDAO.updateEmployeeWithHQL(employee);
 	}
+
+	public boolean getByServiceName(String serviceName) {
+		// TODO Auto-generated method stub
+		return employeeDAO.getByServiceName(serviceName);
+	}
 }
