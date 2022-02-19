@@ -4,6 +4,7 @@ package com.revature.sealTheDeal.services;
 import java.util.List;
 
 import com.revature.sealTheDeal.dao.EmployeeDAO;
+import com.revature.sealTheDeal.models.Booking;
 import com.revature.sealTheDeal.models.Employee;
 
 public class EmployeeServices {
@@ -18,6 +19,9 @@ public class EmployeeServices {
 		return employeeDAO.addEmployee(employee);
 	}
 	
+	public boolean addBooking(Booking booking) {
+		return employeeDAO.addBooking(booking);
+	}
 	public boolean verifyByEmployeeID(String employeeID) {
 		Employee testEmployee = employeeDAO.getEmployeeByEmployeeID(employeeID);
 		if(testEmployee == null) {
@@ -50,5 +54,10 @@ public class EmployeeServices {
 
 	public void updateEmployeeWithHQL(Employee employee) {
 		employeeDAO.updateEmployeeWithHQL(employee);
+	}
+
+	public boolean getByServiceName(String serviceName) {
+		// TODO Auto-generated method stub
+		return employeeDAO.getByServiceName(serviceName);
 	}
 }
