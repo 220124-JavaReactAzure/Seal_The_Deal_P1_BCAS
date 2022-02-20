@@ -15,7 +15,7 @@ public class WeddingUserServices {
 		this.weddingUserDAO = weddingUserDAO;
 	}
 
-	public boolean addEmployee(WeddingUser weddingUser) {
+	public boolean addWeddingUser(WeddingUser weddingUser) {
 		return weddingUserDAO.addWeddingUser(weddingUser);
 	}
 
@@ -34,6 +34,10 @@ public class WeddingUserServices {
 
 	public void updateWeddingUserWithHQL(WeddingUser weddingUser) {
 		weddingUserDAO.updateWeddingUserWithHQL(weddingUser);
+	}
+
+	public boolean verifyByWeddingName(String weddingName) {
+		return weddingUserDAO.verifyByWeddingName(weddingName);
 	}
 }
 
