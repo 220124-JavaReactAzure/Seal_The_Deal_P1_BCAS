@@ -10,8 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.sealTheDeal.models.Employee;
+import com.revature.sealTheDeal.models.Guest;
 import com.revature.sealTheDeal.models.User;
+import com.revature.sealTheDeal.models.WeddingUser;
+import com.revature.sealTheDeal.services.EmployeeServices;
+import com.revature.sealTheDeal.services.GuestServices;
 import com.revature.sealTheDeal.services.UserServices;
+import com.revature.sealTheDeal.services.WeddingUserServices;
 
 
 public class HomeServlet extends HttpServlet{
@@ -21,10 +27,16 @@ public class HomeServlet extends HttpServlet{
 	String message = null;
 	
 	UserServices userServices;
+	EmployeeServices employeeServices;
+	GuestServices guestServices;
+	WeddingUserServices weddingUserServices;
 	ObjectMapper mapper;
 	
-	public HomeServlet(UserServices userServices, ObjectMapper mapper) {
+	public HomeServlet(UserServices userServices, EmployeeServices employeeServices, GuestServices guestServices, WeddingUserServices weddingUserServices, ObjectMapper mapper) {
 		this.userServices = userServices;
+		this.employeeServices = employeeServices;
+		this.guestServices = guestServices;
+		this.weddingUserServices = weddingUserServices;
 		this.mapper = mapper;
 	}
 
@@ -93,12 +105,18 @@ public class HomeServlet extends HttpServlet{
 		}else {
 			switch (verification.getAccountType()) {
 				case 1:
+					Employee currentEmployee = employeeServices.getEmployeeByUsername(username);
+					employeeServices.setSessionEmployee(currentEmployee);
 					out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/employeeHome/\">");
 					break;
 				case 2:
+					Guest currentGuest = guestServices.getGuestByUsername(username);
+					guestServices.setSessionGuest(currentGuest);
 					out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/guestHome/\">");
 					break;
 				case 3:
+					WeddingUser currentWeddingUser = weddingUserServices.getWeddingUserByUsername(username);
+					weddingUserServices.setSessionWeddingUser(currentWeddingUser);
 					out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/weddingUserHome/\">");
 					break;
 				default:

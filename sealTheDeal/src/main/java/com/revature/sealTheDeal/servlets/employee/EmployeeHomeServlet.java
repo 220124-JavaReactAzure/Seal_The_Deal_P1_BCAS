@@ -10,13 +10,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.sealTheDeal.models.Employee;
 import com.revature.sealTheDeal.services.EmployeeServices;
 
-@WebServlet("/employeeHome/")
 public class EmployeeHomeServlet extends HttpServlet {
+
+	EmployeeServices employeeServices; 
+	ObjectMapper mapper;
+	public EmployeeHomeServlet(EmployeeServices employeeServices, ObjectMapper mapper) {
+		this.employeeServices = employeeServices;
+		this.mapper = mapper;
+	}
 
 	@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		Employee currentEmployee = employeeServices.getSessionEmployee();
 		resp.setContentType("text/html");
 	    PrintWriter out = resp.getWriter();
 	    out.println("<style>"
@@ -29,6 +37,9 @@ public class EmployeeHomeServlet extends HttpServlet {
 	    		+ "background-color: grey;"
 	    		+ "}"
 	    		+ "</style>");
+	    
+	    out.print("<h3>Welcome Back " + currentEmployee.getFirstName() + "</h3>");
+	    
 	    out.println("<form action=\"http://localhost:8080/sealTheDeal/employeeHome/addCaterers/\">"
 	    		+ "<input type=\"submit\" value=\"Add Caterer\">"
 	    		+ "</form>");

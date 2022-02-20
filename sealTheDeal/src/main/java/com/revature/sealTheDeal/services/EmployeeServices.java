@@ -10,6 +10,7 @@ import com.revature.sealTheDeal.models.Employee;
 public class EmployeeServices {
 
 	private final EmployeeDAO employeeDAO;
+	Employee sessionEmployee = null;
 
 	public EmployeeServices(EmployeeDAO employeeDAO) {
 		this.employeeDAO = employeeDAO;
@@ -60,4 +61,17 @@ public class EmployeeServices {
 		// TODO Auto-generated method stub
 		return employeeDAO.getByServiceName(serviceName);
 	}
+	
+	public void setSessionEmployee(Employee currentEmployee) {
+		sessionEmployee = currentEmployee;
+	}
+	
+	public Employee getSessionEmployee() {
+		return sessionEmployee;
+	}
+	
+	public void closeSessionEmployee() {
+		sessionEmployee = null;
+	}
+	
 }
