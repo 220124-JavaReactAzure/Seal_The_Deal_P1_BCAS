@@ -35,20 +35,20 @@ public class AddMusiciansServlet extends HttpServlet {
 				+ "background-repeat: no-repeat;" + "background-attachment: fixed;" + "background-size: contain;"
 				+ "background-position: center;" + "background-color: grey;" + "}" + "</style>");
 
-		out.println("<h3>Add Caterer Info</h3>");
+		out.println("<h3>Add Musician Info</h3>");
 		if (message != null) {
 			out.println("<p style=\"color:red;\">" + message + "</p>");
 		}
-		out.println("<HTML>" + "<BODY>" + "<FORM METHOD=POST>Service Name: " + "<INPUT TYPE=TEXT NAME=\"service_name\">"
+		out.println("<HTML>" + "<BODY>" + "<FORM METHOD=POST>Service Name: " 
+				+ "&nbsp;&nbsp;&nbsp;&nbsp;"// blank space for spacing on website
+				+ "<INPUT TYPE=TEXT NAME=\"service_name\">"
 				+ "<P>" + "<FORM METHOD=POST>Price of Services: "
-				+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" // blank
-																														// space
-																														// for
-																														// spacing
-																														// on
-																														// website
 				+ "<INPUT TYPE=TEXT NAME=\"price\">" + "<P>" + "<INPUT TYPE=SUBMIT>" + "</FORM>" + "</BODY>"
 				+ "</HTML>");
+		
+		out.println("<form action=\"http://localhost:8080/sealTheDeal/employeeHome/\">"
+	    		+ "<input type=\"submit\" value=\"Return\">"
+	    		+ "</form>");
 
 	}
 

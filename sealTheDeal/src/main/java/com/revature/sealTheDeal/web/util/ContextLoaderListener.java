@@ -45,10 +45,11 @@ public class ContextLoaderListener implements ServletContextListener {
 		EmployeeDAO employeeDAO = new EmployeeDAO();
 		EmployeeServices employeeServices = new EmployeeServices(employeeDAO);
 		
-		HomeServlet homeServlet = new HomeServlet(userServices,mapper);
+		HomeServlet homeServlet = new HomeServlet(userServices, employeeServices, guestServices, weddingUserServices, mapper);
 		RegisterEmployeeServlet registerEmployeeServlet = new RegisterEmployeeServlet(userServices, employeeServices, mapper);
 		RegisterGuestServlet registerGuestServlet = new RegisterGuestServlet(userServices, weddingUserServices, guestServices, mapper);
 		RegisterWeddingUserServlet registerWeddingUserServlet = new RegisterWeddingUserServlet(userServices, weddingUserServices, mapper);
+		EmployeeHomeServlet employeeHomeServlet = new EmployeeHomeServlet(employeeServices, mapper);
 		AddCaterersServlet addCaterersServlet = new AddCaterersServlet(employeeServices, mapper);
 		AddFloristsServlet addFloristsServlet = new AddFloristsServlet(employeeServices, mapper);
 		AddMusiciansServlet addMusiciansServlet = new AddMusiciansServlet(employeeServices, mapper);
@@ -60,6 +61,7 @@ public class ContextLoaderListener implements ServletContextListener {
 		context.addServlet("RegisterEmployeeServlet", registerEmployeeServlet).addMapping("/registration/employee/");
 		context.addServlet("RegisterGuestServlet", registerGuestServlet).addMapping("/registration/guest/");
 		context.addServlet("RegisterWeddingUserServlet", registerWeddingUserServlet).addMapping("/registration/weddingUser/");
+		context.addServlet("EmployeeHomeServlet", employeeHomeServlet).addMapping("/employeeHome/");
 		context.addServlet("AddCaterersServlet", addCaterersServlet).addMapping("/employeeHome/addCaterers/");
 		context.addServlet("AddFloristsServlet", addFloristsServlet).addMapping("/employeeHome/addFlorists/");
 		context.addServlet("AddMusiciansServlet", addMusiciansServlet).addMapping("/employeeHome/addMusicians/");

@@ -40,16 +40,18 @@ public class AddCaterersServlet extends HttpServlet {
 		if (message != null) {
 			out.println("<p style=\"color:red;\">" + message + "</p>");
 		}
-		out.println("<HTML>" + "<BODY>" + "<FORM METHOD=POST>Service Name: " + "<INPUT TYPE=TEXT NAME=\"service_name\">"
-				+ "<P>" + "<FORM METHOD=POST>Price of Services: "
-				+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" // blank
-																														// space
-																														// for
-																														// spacing
-																														// on
-																														// website
+		out.println("<HTML>" + "<BODY>" 
+				+ "<FORM METHOD=POST>Service Name: " 
+				+ "&nbsp;&nbsp;&nbsp;&nbsp;"// blank space for spacing on website
+				+ "<INPUT TYPE=TEXT NAME=\"service_name\">"
+				+ "<P>" 
+				+ "<FORM METHOD=POST>Price of Services: "
 				+ "<INPUT TYPE=TEXT NAME=\"price\">" + "<P>" + "<INPUT TYPE=SUBMIT>" + "</FORM>" + "</BODY>"
 				+ "</HTML>");
+		
+		out.println("<form action=\"http://localhost:8080/sealTheDeal/employeeHome/\">"
+	    		+ "<input type=\"submit\" value=\"Return\">"
+	    		+ "</form>");
 
 	}
 

@@ -3,12 +3,12 @@ package com.revature.sealTheDeal.services;
 
 import java.util.List;
 
-import com.revature.sealTheDeal.dao.EmployeeDAO;
 import com.revature.sealTheDeal.dao.GuestDAO;
 import com.revature.sealTheDeal.models.Guest;
 
 public class GuestServices {
 	private final GuestDAO guestDAO;
+	Guest sessionGuest = null;
 
 	public GuestServices(GuestDAO guestDAO) {
 		this.guestDAO = guestDAO;
@@ -33,6 +33,18 @@ public class GuestServices {
 
 	public void updateGuestWithHQL(Guest guest) {
 		guestDAO.updateGuestWithHQL(guest);
+	}
+	
+	public void setSessionGuest(Guest currentGuest) {
+		sessionGuest = currentGuest;
+	}
+	
+	public Guest getSessionGuest() {
+		return sessionGuest;
+	}
+	
+	public void closeSessionGuest() {
+		sessionGuest = null;
 	}
 }
 

@@ -24,6 +24,33 @@ public class AddVenuesServlet extends HttpServlet {
 		this.employeeServices = employeeServices;
 		this.mapper = mapper;
 	}
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		resp.setContentType("text/html");
+		PrintWriter out = resp.getWriter();
+		out.println("<style>" + "body {"
+				+ "background-image: url('https://ih1.redbubble.net/image.291419102.1980/st,small,507x507-pad,600x600,f8f8f8.u3.jpg');"
+				+ "background-repeat: no-repeat;" + "background-attachment: fixed;" + "background-size: contain;"
+				+ "background-position: center;" + "background-color: grey;" + "}" + "</style>");
+
+		out.println("<h3>Add Venue Info</h3>");
+		if (message != null) {
+			out.println("<p style=\"color:red;\">" + message + "</p>");
+		}
+		out.println("<HTML>" + "<BODY>" + "<FORM METHOD=POST>Service Name: " 
+				+ "&nbsp;&nbsp;&nbsp;&nbsp;"// blank space for spacing on website
+				+ "<INPUT TYPE=TEXT NAME=\"service_name\">"
+				+ "<P>" + "<FORM METHOD=POST>Price of Services: "
+				+ "<INPUT TYPE=TEXT NAME=\"price\">" + "<P>" + "<INPUT TYPE=SUBMIT>" + "</FORM>" + "</BODY>"
+				+ "</HTML>");
+		
+		out.println("<form action=\"http://localhost:8080/sealTheDeal/employeeHome/\">"
+	    		+ "<input type=\"submit\" value=\"Return\">"
+	    		+ "</form>");
+
+	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
