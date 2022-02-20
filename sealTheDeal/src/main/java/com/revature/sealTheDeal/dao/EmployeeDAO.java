@@ -11,7 +11,6 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import com.revature.sealTheDeal.models.Employee;
-import com.revature.sealTheDeal.models.User;
 import com.revature.sealTheDeal.util.HibernateUtil;
 
 public class EmployeeDAO {
