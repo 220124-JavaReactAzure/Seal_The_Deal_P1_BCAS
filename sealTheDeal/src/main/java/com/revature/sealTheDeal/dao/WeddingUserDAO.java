@@ -4,6 +4,8 @@
 	import java.io.IOException;
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
 import org.hibernate.HibernateException;
 	import org.hibernate.Session;
 	import org.hibernate.Transaction;
@@ -19,13 +21,15 @@ import com.revature.sealTheDeal.util.HibernateUtil;
 		public boolean addWeddingUser(WeddingUser weddingUser) {
 			try {
 				Session session = HibernateUtil.getSession();
+				Transaction transaction = session.beginTransaction();
 				session.save(weddingUser);
+				transaction.commit();
+				HibernateUtil.closeSession();
 				return true;
 			} catch (HibernateException | IOException e) {
 				e.printStackTrace();
-				return false;
-			} finally {
 				HibernateUtil.closeSession();
+				return false;
 			}
 		}
 
@@ -91,5 +95,30 @@ import com.revature.sealTheDeal.util.HibernateUtil;
 		}
 
 		public void deleteWeddingUser(int id) {
+		}
+
+		@SuppressWarnings("unchecked")
+		public boolean verifyByWeddingName(String weddingName) {
+			try {
+				Session session = HibernateUtil.getSession();
+				String sql = "from WeddingUser where wedding_party_name = '" + weddingName + "'";
+				Query<WeddingUser> query = session.createQuery(sql);
+				WeddingUser results = query.getSingleResult();
+				if(results != null) {
+					HibernateUtil.closeSession();
+					return true;
+				}else {
+					HibernateUtil.closeSession();
+					return false;
+				}
+			} catch(NoResultException e) {
+				HibernateUtil.closeSession();
+				return false;
+			}
+			catch (HibernateException | IOException e) {
+				e.printStackTrace();
+				HibernateUtil.closeSession();
+				return false;
+			}
 		}
 	}

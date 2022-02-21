@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.sealTheDeal.dao.EmployeeDAO;
+import com.revature.sealTheDeal.dao.GuestDAO;
+import com.revature.sealTheDeal.models.Employee;
+import com.revature.sealTheDeal.models.Guest;
 import com.revature.sealTheDeal.services.EmployeeServices;
 import com.revature.sealTheDeal.services.GuestServices;
 import com.revature.sealTheDeal.services.UserServices;
@@ -18,7 +22,7 @@ import com.revature.sealTheDeal.services.WeddingUserServices;
 
 public class RegisterGuestServlet extends HttpServlet{
 	
-	String weddingName = null;
+	String weddingPartyName = null;
 	String firstName = null;
 	String lastName = null;
 	String email = null;
@@ -56,14 +60,14 @@ public class RegisterGuestServlet extends HttpServlet{
 	    		+ "}"
 	    		+ "</style>");
 	    
-	    out.println("<h3>Register New Employee</h3>");
+	    out.println("<h3>Register New Guest</h3>");
 	    if(message != null) {
 	    	out.println("<p style=\"color:red;\">"+message+"</p>");
 	    }
 	    out.println("<HTML>"
 	    		+ "<BODY>"
 	    		+ "<FORM METHOD=POST>Wedding Party Name: "
-	    		+ "<INPUT TYPE=TEXT NAME=\"wedding_id\">"
+	    		+ "<INPUT TYPE=TEXT NAME=\"wedding_party_name\">"
 	    		+ "<P>"
 	    		+ "<FORM METHOD=POST>First Name: "
 	    		+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" //blank space for spacing on website
@@ -93,12 +97,66 @@ public class RegisterGuestServlet extends HttpServlet{
 	    		+ "</FORM>"
 	    		+ "</BODY>"
 	    		+ "</HTML>");
+	    
+	    out.println("<form action=\"http://localhost:8080/sealTheDeal/registration/\">"
+	    		+ "<input type=\"submit\" value=\"Return\">"
+	    		+ "</form>");
 		
 		
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		weddingPartyName = req.getParameter("wedding_party_name");
+		firstName = req.getParameter("first_name");
+		lastName = req.getParameter("last_name");
+		email = req.getParameter("email");
+		username = req.getParameter("username");
+		password = req.getParameter("password");
+		passwordVerify = req.getParameter("verify_password");
+		
+		resp.setContentType("text/html");
+		PrintWriter out = resp.getWriter();
+		
+		if(weddingPartyName.trim().isEmpty() || firstName.trim().isEmpty() || lastName.trim().isEmpty() || email.trim().isEmpty() || username.trim().isEmpty() || password.trim().isEmpty() || passwordVerify.trim().isEmpty()) {
+			message = "ALL FIELDS MUST BE FILLED TO REGISTER";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/guest/\">");
+		}
+		else if(Character.isLowerCase(firstName.trim().charAt(0)) || Character.isLowerCase(lastName.trim().charAt(0))) {
+			message = "THE FIRST LETTER OF YOUR FIRST AND LAST NAME MUST BE CAPITAL";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/guest/\">");
+		}
+		else if(!(password.equals(passwordVerify))) {
+			message = "PASSWORDS MUCH MATCH";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/guest/\">");
+		}
+		else if(!(email.trim().contains("@"))) {
+			message = "EMAIL MUST CONTAIN THE @ SYMBOL";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/guest/\">");
+		}
+		else if(!(email.trim().contains(".com") || email.trim().contains(".net") || email.trim().contains(".org") )) {
+			message = "EMAIL MUST CONTAIN A VALID DOMAIN";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/guest/\">");
+		}
+		else if(userServices.getByUsername(username.trim())) {
+			message = "USERNAME ALREADY EXISTS";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/guest/\">");
+		}
+		else if(userServices.getByEmail(email.trim())) {
+			message = "EMAIL ALREADY EXISTS";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/guest/\">");
+		}
+		else if(!(weddingUserServices.verifyByWeddingName(weddingPartyName))) {
+			message = "WEDDING PARTY DOES NOT EXISTS";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/guest/\">");
+		}
+		else{
+			Guest newGuest = new Guest(username,firstName,lastName,password,email,2,weddingPartyName, "", "");
+			guestServices.addGuest(newGuest);
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/\">");
+		}
+		
 		
 	}
 

@@ -94,6 +94,10 @@ public class RegisterEmployeeServlet extends HttpServlet{
 	    		+ "</FORM>"
 	    		+ "</BODY>"
 	    		+ "</HTML>");
+	    
+	    out.println("<form action=\"http://localhost:8080/sealTheDeal/registration/\">"
+	    		+ "<input type=\"submit\" value=\"Return\">"
+	    		+ "</form>");
 		
 		
 	}
@@ -116,7 +120,7 @@ public class RegisterEmployeeServlet extends HttpServlet{
 			message = "ALL FIELDS MUST BE FILLED TO REGISTER";
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/employee/\">");
 		}
-		else if(Character.isLowerCase(firstName.charAt(0)) || Character.isLowerCase(lastName.charAt(0))) {
+		else if(Character.isLowerCase(firstName.trim().charAt(0)) || Character.isLowerCase(lastName.trim().charAt(0))) {
 			message = "THE FIRST LETTER OF YOUR FIRST AND LAST NAME MUST BE CAPITAL";
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/employee/\">");
 		}
@@ -124,17 +128,30 @@ public class RegisterEmployeeServlet extends HttpServlet{
 			message = "PASSWORDS MUCH MATCH";
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/employee/\">");
 		}
-		//else if( checking username is unique )
-		//else if( checking email is unique )
-		
-		
-		//else if( checking employeeid exists )
-		//else if( checking employeeid is not taken )
+		else if(!(email.trim().contains("@"))) {
+			message = "EMAIL MUST CONTAIN THE @ SYMBOL";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/employee/\">");
+		}
+		else if(!(email.trim().contains(".com") || email.trim().contains(".net") || email.trim().contains(".org") )) {
+			message = "EMAIL MUST CONTAIN A VALID DOMAIN";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/employee/\">");
+		}
+		else if(userServices.getByUsername(username.trim())) {
+			message = "USERNAME ALREADY EXISTS";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/employee/\">");
+		}
+		else if(userServices.getByEmail(email)) {
+			message = "EMAIL ALREADY EXISTS";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/employee/\">");
+		}
+		else if(employeeServices.verifyByEmployeeID(employeeID)) {
+			message = "EMPLOYEE ID DOES NOT EXIST OR IS TAKEN";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/employee/\">");
+		}
 		else{
 			Employee newEmployee = new Employee(username,firstName,lastName,password,email,1,employeeID,true);
-			EmployeeDAO empDAO = new EmployeeDAO();
-			EmployeeServices empServ = new EmployeeServices(empDAO);
-			empServ.addEmployee(newEmployee);
+			employeeServices.deleteByEmployeeID(employeeID);
+			employeeServices.addEmployee(newEmployee);
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/\">");
 		}
 		

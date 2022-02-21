@@ -23,7 +23,6 @@ import javax.persistence.Table;
 		
 		private String pass;
 		
-		@Column(unique = true)
 		private String user_email;
 		
 		@Column(name = "account_type")
