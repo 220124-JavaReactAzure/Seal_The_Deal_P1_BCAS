@@ -58,7 +58,7 @@ public class ContextLoaderListener implements ServletContextListener {
 		//registration pages
 		RegisterEmployeeServlet registerEmployeeServlet = new RegisterEmployeeServlet(userServices, employeeServices, mapper);
 		RegisterGuestServlet registerGuestServlet = new RegisterGuestServlet(userServices, weddingUserServices, guestServices, mapper);
-		RegisterWeddingUserServlet registerWeddingUserServlet = new RegisterWeddingUserServlet(userServices, weddingUserServices, mapper);
+		RegisterWeddingUserServlet registerWeddingUserServlet = new RegisterWeddingUserServlet(userServices, weddingUserServices, employeeServices, mapper);
 		//employee services pages
 		EmployeeHomeServlet employeeHomeServlet = new EmployeeHomeServlet(employeeServices, mapper);
 		AddCaterersServlet addCaterersServlet = new AddCaterersServlet(employeeServices, mapper);

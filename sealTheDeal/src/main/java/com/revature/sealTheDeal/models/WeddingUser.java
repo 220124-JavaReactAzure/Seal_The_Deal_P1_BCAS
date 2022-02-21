@@ -28,15 +28,20 @@ public class WeddingUser extends User {
 	@Column(name = "day_of_wedding")
 	private int dayOfWedding;
 	
+	@Column(name = "wedding_budget")
+	private double weddingBudget;
+		
 	@Column(name = "wedding_cost")
 	private double weddingCost;
+	
+
 	
 	public WeddingUser() {
 		
 	}
 	
 	public WeddingUser(String username, String firstName, String lastName, String pass, String user_email,
-			int accountType, String weddingPartyName, String petTypeGroom, String petNameGroom, String petTypeBride, String petNameBride, int dayOfWedding, double weddingCost) {
+			int accountType, String weddingPartyName, String petTypeGroom, String petNameGroom, String petTypeBride, String petNameBride, int dayOfWedding, double weddingBudget, double weddingCost) {
 		super(username, firstName, lastName, pass, user_email, accountType);
 		this.weddingPartyName = weddingPartyName;
 		this.petTypeGroom = petTypeGroom;
@@ -44,6 +49,7 @@ public class WeddingUser extends User {
 		this.petTypeBride = petTypeBride;
 		this.petNameBride = petNameBride;
 		this.dayOfWedding = dayOfWedding;
+		this.weddingBudget = weddingBudget;
 		this.weddingCost = weddingCost;
 	}
 	public String getWeddingPartyName() {
@@ -92,6 +98,14 @@ public class WeddingUser extends User {
 
 	public void setDayOfWedding(int dayOfWedding) {
 		this.dayOfWedding = dayOfWedding;
+	}
+
+	public double getWeddingBudget() {
+		return weddingBudget;
+	}
+
+	public void setWeddingBudget(double weddingBudget) {
+		this.weddingBudget = weddingBudget;
 	}
 
 	public double getWeddingCost() {

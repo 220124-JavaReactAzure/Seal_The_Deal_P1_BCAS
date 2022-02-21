@@ -50,6 +50,17 @@ public class WeddingUserServices {
 	public void closeSessionWeddingUser() {
 		sessionWeddingUser = null;
 	}
+	
+	public Boolean CheckNumeric(String userInput) {
+		for(int i = 0; i<userInput.length(); i++) {
+			if(!(Character.isDigit(userInput.charAt(i)))){
+				if(userInput.charAt(i) != '.') {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }
 
 
