@@ -1,6 +1,10 @@
 package com.revature.sealTheDeal.dao;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -13,6 +17,7 @@ import org.hibernate.query.Query;
 import com.revature.sealTheDeal.models.Booking;
 import com.revature.sealTheDeal.models.Employee;
 import com.revature.sealTheDeal.util.HibernateUtil;
+import com.revature.sealTheDeal.util.datasource.ConnectionFactory;
 
 public class EmployeeDAO {
 
@@ -173,5 +178,38 @@ public class EmployeeDAO {
 			HibernateUtil.closeSession();
 			return true;
 		}
+	}
+
+	public void addWeddingDay(String weddingDay) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+	
+		try {
+			conn = ConnectionFactory.getInstance().getConnection();
+			String sql = ("alter table booking add "+ weddingDay + " bit default 0");
+			System.out.println(conn);
+			ps = conn.prepareStatement(sql);
+			ps.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) { /* Ignored */}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) { /* Ignored */}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) { /* Ignored */}
+			}
+		}
+		
 	}
 }

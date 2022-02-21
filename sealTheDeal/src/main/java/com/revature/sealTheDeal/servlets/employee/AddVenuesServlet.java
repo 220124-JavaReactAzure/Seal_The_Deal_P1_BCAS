@@ -56,7 +56,7 @@ public class AddVenuesServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		serviceName = req.getParameter("service_name");
-		price = Double.valueOf(req.getParameter("price"));
+		
 
 		resp.setContentType("text/html");
 		PrintWriter out = resp.getWriter();
@@ -73,9 +73,15 @@ public class AddVenuesServlet extends HttpServlet {
 			out.println(
 					"<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/employeeHome/addVenues/\">");
 		}
+		else if(employeeServices.CheckNumeric(req.getParameter("price").trim())) {
+			message = "PRICE MUST BE NUMERIC ONLY";
+			out.println(
+					"<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/employeeHome/addVenues/\">");
+		}
+
 
 		else {
-
+			price = Double.valueOf(req.getParameter("price"));
 			Booking newBooking = new Booking(serviceName, 5, price, false);
 
 			employeeServices.addBooking(newBooking);

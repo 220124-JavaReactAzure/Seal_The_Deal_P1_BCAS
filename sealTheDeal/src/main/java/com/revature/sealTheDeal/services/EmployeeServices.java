@@ -73,5 +73,21 @@ public class EmployeeServices {
 	public void closeSessionEmployee() {
 		sessionEmployee = null;
 	}
+
+	public void addWeddingDay(String weddingDay) {
+		employeeDAO.addWeddingDay(weddingDay);
+		
+	}
+	
+	public Boolean CheckNumeric(String userInput) {
+		for(int i = 0; i<userInput.length(); i++) {
+			if(!(Character.isDigit(userInput.charAt(i)))){
+				if(userInput.charAt(i) != '.') {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	
 }
