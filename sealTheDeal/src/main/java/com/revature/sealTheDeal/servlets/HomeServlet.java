@@ -94,7 +94,7 @@ public class HomeServlet extends HttpServlet{
 		resp.setContentType("text/html");
 		PrintWriter out = resp.getWriter();
 		if(username.trim().isEmpty() || password.trim().isEmpty()) {
-			message = "ALL FIELDS MUST BE FILLED TO REGISTER";
+			message = "ALL FIELDS MUST BE FILLED TO LOG IN";
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/\">");
 		}else if(verification == null) {
 			message = "USERNAME OR PASSWORD IS INCORRECT";

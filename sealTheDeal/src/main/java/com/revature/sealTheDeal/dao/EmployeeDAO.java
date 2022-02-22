@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -188,7 +189,6 @@ public class EmployeeDAO {
 		try {
 			conn = ConnectionFactory.getInstance().getConnection();
 			String sql = ("alter table booking add "+ weddingDay + " bit default 0");
-			System.out.println(conn);
 			ps = conn.prepareStatement(sql);
 			ps.executeUpdate();
 		} catch(SQLException e) {
@@ -210,6 +210,46 @@ public class EmployeeDAO {
 				} catch (SQLException e) { /* Ignored */}
 			}
 		}
-		
+	}
+	
+	
+	public List<Booking> getByService(int serviceType, String weddingDay) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<Booking> bookingList = new ArrayList<Booking>();
+	
+		try {
+			conn = ConnectionFactory.getInstance().getConnection();
+			String sql = ("select * from booking where service_type = "+ serviceType);
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				Booking service = new Booking(rs.getString("service_name"), rs.getInt("service_type"), rs.getDouble("price"),  rs.getBoolean(weddingDay));
+				if(service.getServiceName() != null) {
+					bookingList.add(service);
+				}
+			}
+			return bookingList;
+		} catch(SQLException e) {
+			e.printStackTrace();
+			return bookingList;
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) { /* Ignored */}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) { /* Ignored */}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) { /* Ignored */}
+			}
+		}
 	}
 }

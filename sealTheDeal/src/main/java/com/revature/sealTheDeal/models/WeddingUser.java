@@ -34,6 +34,21 @@ public class WeddingUser extends User {
 	@Column(name = "wedding_cost")
 	private double weddingCost;
 	
+	@Column(name = "booked_caterer")
+	private String bookedCaterer;
+	
+	@Column(name = "booked_florist")
+	private String bookedFlorist;
+	
+	@Column(name = "booked_musician")
+	private String bookedMusician;
+	
+	@Column(name = "booked_photographer")
+	private String bookedPhotographer;
+	
+	@Column(name = "booked_venue")
+	private String bookedVenue;
+	
 
 	
 	public WeddingUser() {
@@ -41,7 +56,8 @@ public class WeddingUser extends User {
 	}
 	
 	public WeddingUser(String username, String firstName, String lastName, String pass, String user_email,
-			int accountType, String weddingPartyName, String petTypeGroom, String petNameGroom, String petTypeBride, String petNameBride, int dayOfWedding, double weddingBudget, double weddingCost) {
+			int accountType, String weddingPartyName, String petTypeGroom, String petNameGroom, String petTypeBride, String petNameBride, int dayOfWedding, double weddingBudget, double weddingCost,
+			String bookedCaterer,  String bookedFlorist, String bookedMusician, String bookedPhotographer, String bookedVenue) {
 		super(username, firstName, lastName, pass, user_email, accountType);
 		this.weddingPartyName = weddingPartyName;
 		this.petTypeGroom = petTypeGroom;
@@ -51,6 +67,11 @@ public class WeddingUser extends User {
 		this.dayOfWedding = dayOfWedding;
 		this.weddingBudget = weddingBudget;
 		this.weddingCost = weddingCost;
+		this.bookedCaterer = bookedCaterer;
+		this.bookedFlorist = bookedFlorist;
+		this.bookedMusician = bookedMusician;
+		this.bookedPhotographer = bookedPhotographer;
+		this.bookedVenue = bookedVenue;
 	}
 	public String getWeddingPartyName() {
 		return weddingPartyName;
@@ -114,6 +135,46 @@ public class WeddingUser extends User {
 
 	public void setWeddingCost(double weddingCost) {
 		this.weddingCost = weddingCost;
+	}
+
+	public String getBookedCaterer() {
+		return bookedCaterer;
+	}
+
+	public void setBookedCaterer(String bookedCaterer) {
+		this.bookedCaterer = bookedCaterer;
+	}
+
+	public String getBookedFlorist() {
+		return bookedFlorist;
+	}
+
+	public void setBookedFlorist(String bookedFlorist) {
+		this.bookedFlorist = bookedFlorist;
+	}
+
+	public String getBookedMusician() {
+		return bookedMusician;
+	}
+
+	public void setBookedMusician(String bookedMusician) {
+		this.bookedMusician = bookedMusician;
+	}
+
+	public String getBookedPhotographer() {
+		return bookedPhotographer;
+	}
+
+	public void setBookedPhotographer(String bookedPhotographer) {
+		this.bookedPhotographer = bookedPhotographer;
+	}
+
+	public String getBookedVenue() {
+		return bookedVenue;
+	}
+
+	public void setBookedVenue(String bookedVenue) {
+		this.bookedVenue = bookedVenue;
 	}
 	
 
