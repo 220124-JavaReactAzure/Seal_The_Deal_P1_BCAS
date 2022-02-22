@@ -90,4 +90,8 @@ public class EmployeeServices {
 		return false;
 	}
 	
+	public List<Booking> getByService(int serviceType, String weddingDay){
+		return employeeDAO.getByService(serviceType, weddingDay);
+	}
+	
 }

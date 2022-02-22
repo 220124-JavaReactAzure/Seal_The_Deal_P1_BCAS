@@ -235,7 +235,7 @@ public class RegisterWeddingUserServlet extends HttpServlet{
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/weddingUser/\">");
 		}
 		else{
-			WeddingUser newWedding = new WeddingUser(username,firstName,lastName,password,email,3,weddingName,groomSpecies,groomName,brideSpecies,brideName,date,0,0);
+			WeddingUser newWedding = new WeddingUser(username,firstName,lastName,password,email,3,weddingName,groomSpecies,groomName,brideSpecies,brideName,date,0,0,"","","","","");
 			employeeServices.addWeddingDay("day"+date);
 			weddingUserServices.addWeddingUser(newWedding);
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/\">");

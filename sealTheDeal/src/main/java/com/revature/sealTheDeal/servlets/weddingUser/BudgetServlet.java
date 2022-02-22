@@ -79,11 +79,17 @@ public class BudgetServlet extends HttpServlet {
 			message = "WEDDING BUDGET MUST BE NUMERIC ONLY";
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/weddingUserHome/budget/\">");
 		}
+		
 		else{
 			budget = Double.valueOf(req.getParameter("wedding_budget"));
-			currentWeddingUser.setWeddingBudget(budget);
-			weddingUserServices.updateWeddingUserWithSessionMethod(currentWeddingUser);
-			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/weddingUserHome/\">");
+			if(budget < currentWeddingUser.getWeddingCost()){
+				message = "YOUR BUDGET CANNOT BE LESS THAN YOUR CURRENT COST";
+				out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/weddingUserHome/budget/\">");
+			} else {
+				currentWeddingUser.setWeddingBudget(budget);
+				weddingUserServices.updateWeddingUserWithSessionMethod(currentWeddingUser);
+				out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/weddingUserHome/\">");
+			}
 		}
 	}
 }
