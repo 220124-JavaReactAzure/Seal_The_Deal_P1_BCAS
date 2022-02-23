@@ -22,6 +22,7 @@ import com.revature.sealTheDeal.servlets.employee.AddPhotographersServlet;
 import com.revature.sealTheDeal.servlets.employee.AddVenuesServlet;
 import com.revature.sealTheDeal.servlets.employee.EmployeeHomeServlet;
 import com.revature.sealTheDeal.servlets.guest.ChooseMealServlet;
+import com.revature.sealTheDeal.servlets.guest.ConfirmAttendanceServlet;
 import com.revature.sealTheDeal.servlets.guest.GuestHomeServlet;
 import com.revature.sealTheDeal.servlets.registration.RegisterEmployeeServlet;
 import com.revature.sealTheDeal.servlets.registration.RegisterGuestServlet;
@@ -78,8 +79,9 @@ public class ContextLoaderListener implements ServletContextListener {
 		ChooseVenuesServlet chooseVenuesServlet = new ChooseVenuesServlet(employeeServices, weddingUserServices, mapper);
 		CreateGiftRegistry createGiftRegistry = new CreateGiftRegistry(weddingUserServices, mapper);
 		//guest services pages
-		GuestHomeServlet GuestHomeServlet = new GuestHomeServlet(guestServices, mapper);
+		GuestHomeServlet guestHomeServlet = new GuestHomeServlet(guestServices, mapper);
 		ChooseMealServlet chooseMealServlet = new ChooseMealServlet(guestServices, mapper);
+		ConfirmAttendanceServlet confirmAttendanceServlet = new ConfirmAttendanceServlet(guestServices, weddingUserServices, mapper);
 		
 		ServletContext context = sce.getServletContext();
 		//home page
@@ -104,6 +106,10 @@ public class ContextLoaderListener implements ServletContextListener {
 		context.addServlet("ChoosePhotographersServlet", choosePhotographersServlet).addMapping("/weddingUserHome/choosePhotographers/");
 		context.addServlet("ChooseVenuesServlet", chooseVenuesServlet).addMapping("/weddingUserHome/chooseVenues/");
 		context.addServlet("CreateGiftRegistry", createGiftRegistry).addMapping("/weddingUserHome/giftRegistry/");
+		//guest services pages
+		context.addServlet("ConfirmAttendanceServlet", confirmAttendanceServlet).addMapping("/guestHome/confirmAttendance/");
+		context.addServlet("GuestHomeServlet", guestHomeServlet).addMapping("/guestHome/");
+		context.addServlet("ChooseMealServlet", chooseMealServlet).addMapping("/guestHome/chooseMealServlet/");
 	}
 
 	@Override

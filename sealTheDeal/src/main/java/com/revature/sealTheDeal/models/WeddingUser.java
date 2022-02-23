@@ -49,15 +49,16 @@ public class WeddingUser extends User {
 	@Column(name = "booked_venue")
 	private String bookedVenue;
 	
+	@Column(name = "number_of_guests")
+	private int numberOfGuests;
 
-	
 	public WeddingUser() {
 		
 	}
 	
 	public WeddingUser(String username, String firstName, String lastName, String pass, String user_email,
 			int accountType, String weddingPartyName, String petTypeGroom, String petNameGroom, String petTypeBride, String petNameBride, int dayOfWedding, double weddingBudget, double weddingCost,
-			String bookedCaterer,  String bookedFlorist, String bookedMusician, String bookedPhotographer, String bookedVenue) {
+			String bookedCaterer,  String bookedFlorist, String bookedMusician, String bookedPhotographer, String bookedVenue, int numberOfGuests) {
 		super(username, firstName, lastName, pass, user_email, accountType);
 		this.weddingPartyName = weddingPartyName;
 		this.petTypeGroom = petTypeGroom;
@@ -72,6 +73,7 @@ public class WeddingUser extends User {
 		this.bookedMusician = bookedMusician;
 		this.bookedPhotographer = bookedPhotographer;
 		this.bookedVenue = bookedVenue;
+		this.numberOfGuests = numberOfGuests;
 	}
 	public String getWeddingPartyName() {
 		return weddingPartyName;
@@ -176,6 +178,13 @@ public class WeddingUser extends User {
 	public void setBookedVenue(String bookedVenue) {
 		this.bookedVenue = bookedVenue;
 	}
-	
+
+	public int getNumberOfGuests() {
+		return numberOfGuests;
+	}
+
+	public void setNumberOfGuests(int numberOfGuests) {
+		this.numberOfGuests = numberOfGuests;
+	}
 
 }

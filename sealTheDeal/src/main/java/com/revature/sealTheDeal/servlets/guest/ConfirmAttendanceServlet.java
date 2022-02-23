@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.sealTheDeal.models.Guest;
+import com.revature.sealTheDeal.models.WeddingUser;
 import com.revature.sealTheDeal.services.GuestServices;
+import com.revature.sealTheDeal.services.WeddingUserServices;
 
 public class ConfirmAttendanceServlet extends HttpServlet {
 
@@ -18,15 +20,19 @@ public class ConfirmAttendanceServlet extends HttpServlet {
 	Guest currentGuest;
 	GuestServices guestServices;
 	ObjectMapper mapper;
+	WeddingUserServices weddingUserServices;
+	WeddingUser weddingUser;
 
-	public ConfirmAttendanceServlet(GuestServices guestServices, ObjectMapper mapper) {
+	public ConfirmAttendanceServlet(GuestServices guestServices, WeddingUserServices weddingUserServices, ObjectMapper mapper) {
 		this.guestServices = guestServices;
+		this.weddingUserServices = weddingUserServices;
 		this.mapper = mapper;
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		currentGuest = guestServices.getSessionGuest();
+		weddingUser = weddingUserServices
 		resp.setContentType("text/html");
 		PrintWriter out = resp.getWriter();
 		out.println("<style>" + "body {"
@@ -59,11 +65,26 @@ public class ConfirmAttendanceServlet extends HttpServlet {
 					 + "<label for=\"plus_one\"> Would you like to bring a Plus One?</label><br>"
 					+ "<label for=\"plus_one_name\">Enter name of your Plus One: </label>"
 					+ "<input type=\"text\" id=\"plus_one_name\" name=\"plus_one_name\"><br>"
-					+ "</P>" + "<input type=\"hidden\" name=\"cancel_meal\" value=\"false\">"
-					+ "<input type=\"submit\" value=\"Choose Meal\">" + "</form>" + "</body>" + "</html>");
+					+ "</P>" + "<input type=\"hidden\" name=\"cancel_attendance\" value=\"false\">"
+					+ "<input type=\"submit\" value=\"Submit\">" + "</form>" + "</body>" + "</html>");
 
 			out.println("<form action=\"http://localhost:8080/sealTheDeal/guestHome/\">"
 					+ "<input type=\"submit\" value=\"Return\">" + "</form>");
 		}
 	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		resp.setContentType("text/html");
+		PrintWriter out = resp.getWriter();
+		boolean cancelAttendance = Boolean.valueOf(req.getParameter("cancel_attendance"));
+		
+		if(cancelAttendance) {
+			currentGuest.setAttendance(false);
+		if(currentGuest.getPlusOne().equals("")){
+			
+		}
+		}
+}
 }
