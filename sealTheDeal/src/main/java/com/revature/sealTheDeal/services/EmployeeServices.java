@@ -93,5 +93,14 @@ public class EmployeeServices {
 	public List<Booking> getByService(int serviceType, String weddingDay){
 		return employeeDAO.getByService(serviceType, weddingDay);
 	}
+
+	public Booking getBookedService(String bookedMusician, String weddingDay) {
+		return employeeDAO.getBookedService(bookedMusician, weddingDay);
+	}
+
+	public void updateBooking(Booking updateService, String weddingDay) {
+		employeeDAO.updateBooking(updateService, weddingDay);
+		
+	}
 	
 }
