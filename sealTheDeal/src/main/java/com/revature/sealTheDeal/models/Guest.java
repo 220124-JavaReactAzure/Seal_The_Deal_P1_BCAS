@@ -18,15 +18,19 @@ public class Guest extends User {
 	@Column(name = "plus_one_name")
 	private String plusOne;
 	
+	@Column(name = "is_attending")
+	private boolean isAttending;
+	
 	public Guest() {
 		super();
 	}
 	
-	public Guest(String username, String firstName, String lastName, String pass, String user_email, int accountType, String weddingPartyName, String foodType, String plusOne) {
+	public Guest(String username, String firstName, String lastName, String pass, String user_email, int accountType, String weddingPartyName, String foodType, String plusOne, boolean isAttending) {
 		super(username, firstName, lastName, pass, user_email, accountType);
 		this.weddingPartyName = weddingPartyName;
 		this.foodType = foodType;
 		this.plusOne = plusOne;
+		this.isAttending = isAttending;
 	}
 	
 
@@ -56,4 +60,13 @@ public class Guest extends User {
 	public void setPlusOne(String plusOne) {
 		this.plusOne = plusOne;
 	}
+	
+	public boolean isAttending() {
+		return isAttending;
+	}
+
+	public void setAttendance(boolean isAttending) {
+		this.isAttending = isAttending;
+	}
+
 }
