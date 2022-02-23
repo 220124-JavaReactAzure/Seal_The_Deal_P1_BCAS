@@ -46,7 +46,7 @@ public class ChooseMusiciansServlet extends HttpServlet  {
 	    		+ "background-color: grey;"
 	    		+ "}"
 	    		+ "</style>");
-		if(currentWeddingUser.getBookedMusician() != "") {
+		if(!(currentWeddingUser.getBookedMusician().equals(""))) {
 			out.println("<h3>Your Current Musician is "+currentWeddingUser.getBookedMusician()+"</h3>");
 			
 			out.println("<HTML>"
@@ -56,7 +56,7 @@ public class ChooseMusiciansServlet extends HttpServlet  {
 					+ "Would you like to cancel your musician booking?"
 					+ "</P>"
 					+ "<input type=\"hidden\" name=\"cancel_booking\" value=\"true\">"
-					+ "<input type=\"submit\" value=\"Cancel\">"
+					+ "<input type=\"submit\" value=\"Cancel Musician Booking\">"
 					+ "</form>"
 					+ "</body>"
 					+ "</html>");
@@ -84,6 +84,9 @@ public class ChooseMusiciansServlet extends HttpServlet  {
 	    
 			out.println("<HTML>"
 					+ "<BODY>"
+					+ "<P>"
+					+ "Remaining Budget: $" + (currentWeddingUser.getWeddingBudget() - currentWeddingUser.getWeddingCost())
+					+ "</P>"
 					+ "<FORM METHOD=POST>"
 					+ allOptionsInRadio
 					+ "<P>"
@@ -111,13 +114,29 @@ public class ChooseMusiciansServlet extends HttpServlet  {
 		cancelBooking = Boolean.valueOf(req.getParameter("cancel_booking"));
 		
 		if(cancelBooking) {
-			
-		}else {
-			
+			Booking unbookMusician = employeeServices.getBookedService(currentWeddingUser.getBookedMusician(), "day"+currentWeddingUser.getDayOfWedding());
+			unbookMusician.setBooked(false);
+			currentWeddingUser.setBookedMusician("");
+			currentWeddingUser.setWeddingCost(currentWeddingUser.getWeddingCost() - unbookMusician.getPrice());
+			weddingUserServices.updateWeddingUserWithSessionMethod(currentWeddingUser);
+			employeeServices.updateBooking(unbookMusician, "day"+currentWeddingUser.getDayOfWedding());
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/weddingUserHome/\">");
+		} else {
+			Booking bookThisMusician = bookingOptions.get(Integer.valueOf(req.getParameter("musician_options")));
+			if(currentWeddingUser.getWeddingBudget()<bookThisMusician.getPrice()) {
+				message = "YOU CANNOT BOOK A MUSICIAN WITH A HIGHER PRICE THAN YOUR REMAINING BUDGET";
+				out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/weddingUserHome/chooseMusicians/\">");
+			} else {
+				currentWeddingUser.setBookedMusician(bookThisMusician.getServiceName());
+				currentWeddingUser.setWeddingCost(currentWeddingUser.getWeddingCost() + bookThisMusician.getPrice());
+				bookThisMusician.setBooked(true);
+				weddingUserServices.updateWeddingUserWithSessionMethod(currentWeddingUser);
+				employeeServices.updateBooking(bookThisMusician, "day"+currentWeddingUser.getDayOfWedding());
+				out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/weddingUserHome/\">");
+			}
 		}
 		
-		message = bookingOptions.get(Integer.valueOf(req.getParameter("musician_options"))).getServiceName();
-		out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/weddingUserHome/chooseMusicians/\">");
+		
 
 	}
 }

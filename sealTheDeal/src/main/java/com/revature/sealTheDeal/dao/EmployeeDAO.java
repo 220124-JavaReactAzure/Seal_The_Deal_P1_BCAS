@@ -252,4 +252,73 @@ public class EmployeeDAO {
 			}
 		}
 	}
+
+	public Booking getBookedService(String bookedServiceName, String weddingDay) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Booking bookedService = new Booking();
+	
+		try {
+			conn = ConnectionFactory.getInstance().getConnection();
+			String sql = ("select * from booking where service_name = '"+ bookedServiceName + "'");
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				bookedService = new Booking(rs.getString("service_name"), rs.getInt("service_type"), rs.getDouble("price"),  rs.getBoolean(weddingDay));
+			}
+			return bookedService;
+		} catch(SQLException e) {
+			e.printStackTrace();
+			return bookedService;
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) { /* Ignored */}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) { /* Ignored */}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) { /* Ignored */}
+			}
+		}
+	}
+
+	public void updateBooking(Booking updateService, String weddingDay) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+	
+		try {
+			conn = ConnectionFactory.getInstance().getConnection();
+			String sql = ("update booking set "+ weddingDay +" = '" + updateService.isBooked() + "' where service_name = '"+ updateService.getServiceName() + "'");
+			ps = conn.prepareStatement(sql);
+			ps.execute();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) { /* Ignored */}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) { /* Ignored */}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) { /* Ignored */}
+			}
+		}
+		
+	}
 }
