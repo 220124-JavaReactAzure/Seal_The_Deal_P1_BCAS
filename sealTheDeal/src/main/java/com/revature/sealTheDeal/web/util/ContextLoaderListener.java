@@ -21,6 +21,8 @@ import com.revature.sealTheDeal.servlets.employee.AddMusiciansServlet;
 import com.revature.sealTheDeal.servlets.employee.AddPhotographersServlet;
 import com.revature.sealTheDeal.servlets.employee.AddVenuesServlet;
 import com.revature.sealTheDeal.servlets.employee.EmployeeHomeServlet;
+import com.revature.sealTheDeal.servlets.guest.ChooseMealServlet;
+import com.revature.sealTheDeal.servlets.guest.GuestHomeServlet;
 import com.revature.sealTheDeal.servlets.registration.RegisterEmployeeServlet;
 import com.revature.sealTheDeal.servlets.registration.RegisterGuestServlet;
 import com.revature.sealTheDeal.servlets.registration.RegisterWeddingUserServlet;
@@ -75,6 +77,9 @@ public class ContextLoaderListener implements ServletContextListener {
 		ChoosePhotographersServlet choosePhotographersServlet = new ChoosePhotographersServlet(employeeServices, weddingUserServices, mapper);
 		ChooseVenuesServlet chooseVenuesServlet = new ChooseVenuesServlet(employeeServices, weddingUserServices, mapper);
 		CreateGiftRegistry createGiftRegistry = new CreateGiftRegistry(weddingUserServices, mapper);
+		//guest services pages
+		GuestHomeServlet GuestHomeServlet = new GuestHomeServlet(guestServices, mapper);
+		ChooseMealServlet chooseMealServlet = new ChooseMealServlet(guestServices, mapper);
 		
 		ServletContext context = sce.getServletContext();
 		//home page
