@@ -77,7 +77,7 @@ public class Guest extends User {
 		return plusOneFoodType;
 	}
 
-	public void setPlusOneFoodTypel(String plusOneFoodType) {
+	public void setPlusOneFoodType(String plusOneFoodType) {
 		this.plusOneFoodType = plusOneFoodType;
 	}
 
