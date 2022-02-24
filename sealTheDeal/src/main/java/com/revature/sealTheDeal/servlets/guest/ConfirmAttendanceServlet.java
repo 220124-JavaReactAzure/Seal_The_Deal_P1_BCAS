@@ -33,7 +33,7 @@ public class ConfirmAttendanceServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		currentGuest = guestServices.getSessionGuest();
-		weddingUser = weddingUserServices.verifyByWeddingName(currentGuest.getWeddingPartyName());
+		weddingUser = weddingUserServices.getByWeddingName(currentGuest.getWeddingPartyName());
 		resp.setContentType("text/html");
 		PrintWriter out = resp.getWriter();
 		out.println("<style>" + "body {"
@@ -62,8 +62,8 @@ public class ConfirmAttendanceServlet extends HttpServlet {
 					+ "<label for=\"is_attending\">Check for attendance confirmation</label><br>"
 					+ "<input type=\"radio\" id=\"is_not_attending\" name=\"confirm_attendance\" value=\"false\">"
 					+ "<label for=\"is_not_attending\">Check if not attending</label><br>"
-					+ "<input type=\"checkbox\" id=\"plus_one\" name=\"plus_one\" value=\"true\">"
-					+ "<label for=\"plus_one\"> Would you like to bring a Plus One?</label><br>"
+					+ "<input type=\"checkbox\" id=\"plus_one_box\" value=\"1\" name=\"plus_one\">"
+					+ "Would you like to bring a Plus One?<br>"
 					+ "<label for=\"plus_one_name\">Enter name of your Plus One: </label>"
 					+ "<input type=\"text\" id=\"plus_one_name\" name=\"plus_one_name\"><br>" + "</P>"
 					+ "<input type=\"hidden\" name=\"cancel_attendance\" value=\"false\">"
@@ -96,9 +96,11 @@ public class ConfirmAttendanceServlet extends HttpServlet {
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/guestHome/\">");
 		} else {
 			boolean confirmAttendance = Boolean.valueOf(req.getParameter("confirm_attendance"));
+			int plusOne = 0;
+			plusOne += Integer.valueOf(req.getParameter("plus_one"));
 			if (confirmAttendance) {
 				currentGuest.setAttendance(true);
-				if (req.getParameter("plus_one").equals("true")) {
+				if (plusOne == 1) {
 					currentGuest.setPlusOne(req.getParameter("plus_one_name"));
 					weddingUser.setNumberOfGuests(weddingUser.getNumberOfGuests() + 2);
 				} else {
@@ -106,6 +108,8 @@ public class ConfirmAttendanceServlet extends HttpServlet {
 				}
 				weddingUserServices.updateWeddingUserWithSessionMethod(weddingUser);
 				guestServices.updateGuestWithSessionMethod(currentGuest);
+				out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/guestHome/\">");
+			}else {
 				out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/guestHome/\">");
 			}
 		}
