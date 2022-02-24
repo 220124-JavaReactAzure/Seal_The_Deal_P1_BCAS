@@ -97,7 +97,7 @@ public class WeddingUserDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public WeddingUser verifyByWeddingName(String weddingName) {
+	public WeddingUser getByWeddingName(String weddingName) {
 		try {
 			Session session = HibernateUtil.getSession();
 			String sql = "from WeddingUser where wedding_party_name = '" + weddingName + "'";
@@ -117,6 +117,31 @@ public class WeddingUserDAO {
 			e.printStackTrace();
 			HibernateUtil.closeSession();
 			return null;
+		}
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	public boolean verifyByWeddingName(String weddingName) {
+		try {
+			Session session = HibernateUtil.getSession();
+			String sql = "from WeddingUser where wedding_party_name = '" + weddingName + "'";
+			Query<WeddingUser> query = session.createQuery(sql);
+			WeddingUser results = query.getSingleResult();
+			if (results != null) {
+				HibernateUtil.closeSession();
+				return true;
+			} else {
+				HibernateUtil.closeSession();
+				return false;
+			}
+		} catch (NoResultException e) {
+			HibernateUtil.closeSession();
+			return false;
+		} catch (HibernateException | IOException e) {
+			e.printStackTrace();
+			HibernateUtil.closeSession();
+			return false;
 		}
 
 	}
