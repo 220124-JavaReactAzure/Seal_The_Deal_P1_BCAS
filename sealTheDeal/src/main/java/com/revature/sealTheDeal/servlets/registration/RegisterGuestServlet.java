@@ -60,7 +60,7 @@ public class RegisterGuestServlet extends HttpServlet{
 	    		+ "}"
 	    		+ "</style>");
 	    
-	    out.println("<h3>Register New Employee</h3>");
+	    out.println("<h3>Register New Guest</h3>");
 	    if(message != null) {
 	    	out.println("<p style=\"color:red;\">"+message+"</p>");
 	    }
@@ -97,6 +97,10 @@ public class RegisterGuestServlet extends HttpServlet{
 	    		+ "</FORM>"
 	    		+ "</BODY>"
 	    		+ "</HTML>");
+	    
+	    out.println("<form action=\"http://localhost:8080/sealTheDeal/registration/\">"
+	    		+ "<input type=\"submit\" value=\"Return\">"
+	    		+ "</form>");
 		
 		
 	}
@@ -127,6 +131,14 @@ public class RegisterGuestServlet extends HttpServlet{
 			message = "PASSWORDS MUCH MATCH";
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/guest/\">");
 		}
+		else if(!(email.trim().contains("@"))) {
+			message = "EMAIL MUST CONTAIN THE @ SYMBOL";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/guest/\">");
+		}
+		else if(!(email.trim().contains(".com") || email.trim().contains(".net") || email.trim().contains(".org") )) {
+			message = "EMAIL MUST CONTAIN A VALID DOMAIN";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/guest/\">");
+		}
 		else if(userServices.getByUsername(username.trim())) {
 			message = "USERNAME ALREADY EXISTS";
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/guest/\">");
@@ -135,24 +147,14 @@ public class RegisterGuestServlet extends HttpServlet{
 			message = "EMAIL ALREADY EXISTS";
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/guest/\">");
 		}
-		
-		
-		//else if( checking employeeid exists )
-		//else if( checking employeeid is not taken )
+		else if(!(weddingUserServices.verifyByWeddingName(weddingPartyName))) {
+			message = "WEDDING PARTY DOES NOT EXISTS";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/guest/\">");
+		}
 		else{
-<<<<<<< HEAD
-			//Guest newGuest = new Guest(username,firstName,lastName,password,email,1,weddingName,true);
-			//GuestDAO guestDAO = new GuestDAO();
-			//GuestServices guestServ = new GuestServices(guestDAO);
-			//guestServ.addGuest(newGuest);
-			//out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/\">");
-=======
-			Guest newGuest = new Guest(username,firstName,lastName,password,email,2,weddingPartyName, "", "");
-			GuestDAO guestDAO = new GuestDAO();
-			GuestServices guestServ = new GuestServices(guestDAO);
-			guestServ.addGuest(newGuest);
+			Guest newGuest = new Guest(username,firstName,lastName,password,email,2,weddingPartyName, "", "", "",false);
+			guestServices.addGuest(newGuest);
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/\">");
->>>>>>> refs/remotes/origin/development
 		}
 		
 		

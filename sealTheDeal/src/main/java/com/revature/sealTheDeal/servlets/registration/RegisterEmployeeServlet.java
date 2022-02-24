@@ -94,6 +94,10 @@ public class RegisterEmployeeServlet extends HttpServlet{
 	    		+ "</FORM>"
 	    		+ "</BODY>"
 	    		+ "</HTML>");
+	    
+	    out.println("<form action=\"http://localhost:8080/sealTheDeal/registration/\">"
+	    		+ "<input type=\"submit\" value=\"Return\">"
+	    		+ "</form>");
 		
 		
 	}

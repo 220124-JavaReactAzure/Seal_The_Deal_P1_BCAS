@@ -9,11 +9,37 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/")
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.sealTheDeal.models.Employee;
+import com.revature.sealTheDeal.models.Guest;
+import com.revature.sealTheDeal.models.User;
+import com.revature.sealTheDeal.models.WeddingUser;
+import com.revature.sealTheDeal.services.EmployeeServices;
+import com.revature.sealTheDeal.services.GuestServices;
+import com.revature.sealTheDeal.services.UserServices;
+import com.revature.sealTheDeal.services.WeddingUserServices;
+
+
 public class HomeServlet extends HttpServlet{
 
-	String name = null;
+	String username = null;
+	String password = null;
+	String message = null;
 	
+	UserServices userServices;
+	EmployeeServices employeeServices;
+	GuestServices guestServices;
+	WeddingUserServices weddingUserServices;
+	ObjectMapper mapper;
+	
+	public HomeServlet(UserServices userServices, EmployeeServices employeeServices, GuestServices guestServices, WeddingUserServices weddingUserServices, ObjectMapper mapper) {
+		this.userServices = userServices;
+		this.employeeServices = employeeServices;
+		this.guestServices = guestServices;
+		this.weddingUserServices = weddingUserServices;
+		this.mapper = mapper;
+	}
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
@@ -33,6 +59,11 @@ public class HomeServlet extends HttpServlet{
 	    		+ "}"
 	    		+ "</style>");
 	    
+	    out.println("<h2>Prepare To Seal The Deal</h2>");
+	    if(message != null) {
+	    	out.println("<p style=\"color:red;\">"+message+"</p>");
+	    }
+	    
 	    out.println("<HTML>"
 	    		+ "<BODY>"
 	    		+ "<FORM METHOD=POST>Username: "
@@ -47,14 +78,6 @@ public class HomeServlet extends HttpServlet{
 	    		+ "</HTML>");
 	    
 	    
-
-	    //String name = req.getParameter("username");
-	    out.println("<HTML>");
-	    out.println("<HEAD><TITLE>Hello, " + name + "</TITLE></HEAD>");
-	    out.println("<BODY>");
-	    out.println("Hello, " + name);
-	    out.println("</BODY></HTML>");
-	    
 	    out.println("<form action=\"http://localhost:8080/sealTheDeal/registration/\">"
 	    		+ "<input type=\"submit\" value=\"Registration\">"
 	    		+ "</form>");
@@ -63,11 +86,44 @@ public class HomeServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		name = req.getParameter("username");
+		username = req.getParameter("username");
+		password = req.getParameter("password"); 
+		
+		User verification = userServices.returnByUsername(username);
+		
 		resp.setContentType("text/html");
 		PrintWriter out = resp.getWriter();
-		out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/\">");
-
+		if(username.trim().isEmpty() || password.trim().isEmpty()) {
+			message = "ALL FIELDS MUST BE FILLED TO LOG IN";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/\">");
+		}else if(verification == null) {
+			message = "USERNAME OR PASSWORD IS INCORRECT";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/\">");
+		}else if(!(password.equals(verification.getPass()))) {
+			message = "USERNAME OR PASSWORD IS INCORRECT";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/\">");
+		}else {
+			switch (verification.getAccountType()) {
+				case 1:
+					Employee currentEmployee = employeeServices.getEmployeeByUsername(username);
+					employeeServices.setSessionEmployee(currentEmployee);
+					out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/employeeHome/\">");
+					break;
+				case 2:
+					Guest currentGuest = guestServices.getGuestByUsername(username);
+					guestServices.setSessionGuest(currentGuest);
+					out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/guestHome/\">");
+					break;
+				case 3:
+					WeddingUser currentWeddingUser = weddingUserServices.getWeddingUserByUsername(username);
+					weddingUserServices.setSessionWeddingUser(currentWeddingUser);
+					out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/weddingUserHome/\">");
+					break;
+				default:
+					out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/\">");
+					break;
+			}
+		}
 	}
 	
 	

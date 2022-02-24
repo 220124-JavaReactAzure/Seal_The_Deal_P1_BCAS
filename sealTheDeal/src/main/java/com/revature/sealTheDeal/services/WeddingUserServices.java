@@ -3,19 +3,18 @@ package com.revature.sealTheDeal.services;
 
 import java.util.List;
 
-import com.revature.sealTheDeal.dao.GuestDAO;
 import com.revature.sealTheDeal.dao.WeddingUserDAO;
-import com.revature.sealTheDeal.models.Guest;
 import com.revature.sealTheDeal.models.WeddingUser;
 
 public class WeddingUserServices {
 	private final WeddingUserDAO weddingUserDAO;
+	WeddingUser sessionWeddingUser = null;
 
 	public WeddingUserServices(WeddingUserDAO weddingUserDAO) {
 		this.weddingUserDAO = weddingUserDAO;
 	}
 
-	public boolean addEmployee(WeddingUser weddingUser) {
+	public boolean addWeddingUser(WeddingUser weddingUser) {
 		return weddingUserDAO.addWeddingUser(weddingUser);
 	}
 
@@ -23,7 +22,7 @@ public class WeddingUserServices {
 		return weddingUserDAO.getAllWeddingUser();
 	}
 
-	public WeddingUser getGuestByUsername(String username) {
+	public WeddingUser getWeddingUserByUsername(String username) {
 
 		return weddingUserDAO.getWeddingUserByUsername(username);
 	}
@@ -34,6 +33,38 @@ public class WeddingUserServices {
 
 	public void updateWeddingUserWithHQL(WeddingUser weddingUser) {
 		weddingUserDAO.updateWeddingUserWithHQL(weddingUser);
+	}
+
+	public boolean verifyByWeddingName(String weddingName) {
+		return weddingUserDAO.verifyByWeddingName(weddingName);
+	}
+	
+	public WeddingUser getByWeddingName(String weddingName) {
+		return weddingUserDAO.getByWeddingName(weddingName);
+	}
+	
+	
+	public void setSessionWeddingUser(WeddingUser currentWeddingUser) {
+		sessionWeddingUser = currentWeddingUser;
+	}
+	
+	public WeddingUser getSessionWeddingUser() {
+		return sessionWeddingUser;
+	}
+	
+	public void closeSessionWeddingUser() {
+		sessionWeddingUser = null;
+	}
+	
+	public Boolean CheckNumeric(String userInput) {
+		for(int i = 0; i<userInput.length(); i++) {
+			if(!(Character.isDigit(userInput.charAt(i)))){
+				if(userInput.charAt(i) != '.') {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }
 

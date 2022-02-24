@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.sealTheDeal.models.Employee;
+import com.revature.sealTheDeal.models.WeddingUser;
+import com.revature.sealTheDeal.services.EmployeeServices;
 import com.revature.sealTheDeal.services.UserServices;
 import com.revature.sealTheDeal.services.WeddingUserServices;
 
@@ -21,6 +24,7 @@ public class RegisterWeddingUserServlet extends HttpServlet{
 	String groomName = null;
 	String brideSpecies = null;
 	String brideName = null;
+	int date = 0;
 	String firstName = null;
 	String lastName = null;
 	String email = null;
@@ -31,13 +35,15 @@ public class RegisterWeddingUserServlet extends HttpServlet{
 	
 	UserServices userServices;
 	WeddingUserServices weddingUserServices;
+	EmployeeServices employeeServices;
 	ObjectMapper mapper;
 	
 	
-	public RegisterWeddingUserServlet(UserServices userServices, WeddingUserServices weddingUserServices,
+	public RegisterWeddingUserServlet(UserServices userServices, WeddingUserServices weddingUserServices,EmployeeServices employeeServices,
 			ObjectMapper mapper) {
 		this.userServices = userServices;
 		this.weddingUserServices = weddingUserServices;
+		this.employeeServices = employeeServices;
 		this.mapper = mapper;
 	}
 
@@ -166,6 +172,10 @@ public class RegisterWeddingUserServlet extends HttpServlet{
 	    		+ "</FORM>"
 	    		+ "</BODY>"
 	    		+ "</HTML>");
+	    
+	    out.println("<form action=\"http://localhost:8080/sealTheDeal/registration/\">"
+	    		+ "<input type=\"submit\" value=\"Return\">"
+	    		+ "</form>");
 		
 		
 	}
@@ -174,9 +184,63 @@ public class RegisterWeddingUserServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		message = "day" + req.getParameter("month") + req.getParameter("day") + req.getParameter("year");
 		
+		
+		weddingName = req.getParameter("wedding_name");
+		groomSpecies = req.getParameter("pet_groom_species");
+		groomName = req.getParameter("pet_groom_name");
+		brideSpecies = req.getParameter("pet_bride_species");
+		brideName = req.getParameter("pet_bride_name");
+		date = Integer.valueOf(req.getParameter("month") + req.getParameter("day") + req.getParameter("year"));
+		firstName = req.getParameter("first_name");
+		lastName = req.getParameter("last_name");
+		email = req.getParameter("email");
+		username = req.getParameter("username");
+		password = req.getParameter("password");
+		passwordVerify = req.getParameter("verify_password");
+		
+		
 		resp.setContentType("text/html");
 		PrintWriter out = resp.getWriter();
-		out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/weddingUser/\">");
+		
+		if(weddingName.trim().isEmpty() || groomSpecies.trim().isEmpty() || groomName.trim().isEmpty() || brideSpecies.trim().isEmpty() || brideName.trim().isEmpty() || firstName.trim().isEmpty() || lastName.trim().isEmpty() || email.trim().isEmpty() || username.trim().isEmpty() || password.trim().isEmpty() || passwordVerify.trim().isEmpty()) {
+			message = "ALL FIELDS MUST BE FILLED TO REGISTER";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/weddingUser/\">");
+		}
+		else if(Character.isLowerCase(firstName.trim().charAt(0)) || Character.isLowerCase(lastName.trim().charAt(0))) {
+			message = "THE FIRST LETTER OF YOUR FIRST AND LAST NAME MUST BE CAPITAL";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/weddingUser/\">");
+		}
+		else if(!(password.equals(passwordVerify))) {
+			message = "PASSWORDS MUCH MATCH";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/weddingUser/\">");
+		}
+		else if(!(email.trim().contains("@"))) {
+			message = "EMAIL MUST CONTAIN THE @ SYMBOL";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/weddingUser/\">");
+		}
+		else if(!(email.trim().contains(".com") || email.trim().contains(".net") || email.trim().contains(".org") )) {
+			message = "EMAIL MUST CONTAIN A VALID DOMAIN";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/weddingUser/\">");
+		}
+		else if(userServices.getByUsername(username.trim())) {
+			message = "USERNAME ALREADY EXISTS";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/weddingUser/\">");
+		}
+		else if(userServices.getByEmail(email)) {
+			message = "EMAIL ALREADY EXISTS";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/weddingUser/\">");
+		}
+		else if(weddingUserServices.verifyByWeddingName(weddingName)) {
+			message = "WEDDING NAME IS TAKEN";
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/weddingUser/\">");
+		}
+		else{
+			WeddingUser newWedding = new WeddingUser(username,firstName,lastName,password,email,3,weddingName,groomSpecies,groomName,brideSpecies,brideName,date,0,0,"","","","","",0);
+			employeeServices.addWeddingDay("day"+date);
+			weddingUserServices.addWeddingUser(newWedding);
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/\">");
+		}
+		
 	}
 
 }
