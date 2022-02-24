@@ -24,6 +24,7 @@ import com.revature.sealTheDeal.servlets.employee.EmployeeHomeServlet;
 import com.revature.sealTheDeal.servlets.guest.ChooseMealServlet;
 import com.revature.sealTheDeal.servlets.guest.ConfirmAttendanceServlet;
 import com.revature.sealTheDeal.servlets.guest.GuestHomeServlet;
+import com.revature.sealTheDeal.servlets.guest.ViewWeddingDetailsServlet;
 import com.revature.sealTheDeal.servlets.registration.RegisterEmployeeServlet;
 import com.revature.sealTheDeal.servlets.registration.RegisterGuestServlet;
 import com.revature.sealTheDeal.servlets.registration.RegisterWeddingUserServlet;
@@ -82,6 +83,8 @@ public class ContextLoaderListener implements ServletContextListener {
 		GuestHomeServlet guestHomeServlet = new GuestHomeServlet(guestServices, mapper);
 		ChooseMealServlet chooseMealServlet = new ChooseMealServlet(guestServices, mapper);
 		ConfirmAttendanceServlet confirmAttendanceServlet = new ConfirmAttendanceServlet(guestServices, weddingUserServices, mapper);
+		ViewWeddingDetailsServlet viewWeddingDetailsServlet = new ViewWeddingDetailsServlet(guestServices, weddingUserServices, mapper);
+		
 		
 		ServletContext context = sce.getServletContext();
 		//home page
@@ -109,7 +112,8 @@ public class ContextLoaderListener implements ServletContextListener {
 		//guest services pages
 		context.addServlet("ConfirmAttendanceServlet", confirmAttendanceServlet).addMapping("/guestHome/confirmAttendance/");
 		context.addServlet("GuestHomeServlet", guestHomeServlet).addMapping("/guestHome/");
-		context.addServlet("ChooseMealServlet", chooseMealServlet).addMapping("/guestHome/chooseMealServlet/");
+		context.addServlet("ChooseMealServlet", chooseMealServlet).addMapping("/guestHome/chooseMeal/");
+		context.addServlet("ViewWeddingDetails", viewWeddingDetailsServlet).addMapping("/guestHome/viewWeddingDetails/");
 	}
 
 	@Override
