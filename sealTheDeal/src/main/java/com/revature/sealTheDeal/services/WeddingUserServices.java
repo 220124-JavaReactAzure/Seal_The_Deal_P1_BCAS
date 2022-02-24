@@ -39,6 +39,11 @@ public class WeddingUserServices {
 		return weddingUserDAO.verifyByWeddingName(weddingName);
 	}
 	
+	public WeddingUser getByWeddingName(String weddingName) {
+		return weddingUserDAO.getByWeddingName(weddingName);
+	}
+	
+	
 	public void setSessionWeddingUser(WeddingUser currentWeddingUser) {
 		sessionWeddingUser = currentWeddingUser;
 	}
@@ -49,6 +54,17 @@ public class WeddingUserServices {
 	
 	public void closeSessionWeddingUser() {
 		sessionWeddingUser = null;
+	}
+	
+	public Boolean CheckNumeric(String userInput) {
+		for(int i = 0; i<userInput.length(); i++) {
+			if(!(Character.isDigit(userInput.charAt(i)))){
+				if(userInput.charAt(i) != '.') {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }
 

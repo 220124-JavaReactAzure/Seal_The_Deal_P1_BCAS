@@ -21,6 +21,10 @@ import com.revature.sealTheDeal.servlets.employee.AddMusiciansServlet;
 import com.revature.sealTheDeal.servlets.employee.AddPhotographersServlet;
 import com.revature.sealTheDeal.servlets.employee.AddVenuesServlet;
 import com.revature.sealTheDeal.servlets.employee.EmployeeHomeServlet;
+import com.revature.sealTheDeal.servlets.guest.ChooseMealServlet;
+import com.revature.sealTheDeal.servlets.guest.ConfirmAttendanceServlet;
+import com.revature.sealTheDeal.servlets.guest.GuestHomeServlet;
+import com.revature.sealTheDeal.servlets.guest.ViewWeddingDetailsServlet;
 import com.revature.sealTheDeal.servlets.registration.RegisterEmployeeServlet;
 import com.revature.sealTheDeal.servlets.registration.RegisterGuestServlet;
 import com.revature.sealTheDeal.servlets.registration.RegisterWeddingUserServlet;
@@ -58,7 +62,7 @@ public class ContextLoaderListener implements ServletContextListener {
 		//registration pages
 		RegisterEmployeeServlet registerEmployeeServlet = new RegisterEmployeeServlet(userServices, employeeServices, mapper);
 		RegisterGuestServlet registerGuestServlet = new RegisterGuestServlet(userServices, weddingUserServices, guestServices, mapper);
-		RegisterWeddingUserServlet registerWeddingUserServlet = new RegisterWeddingUserServlet(userServices, weddingUserServices, mapper);
+		RegisterWeddingUserServlet registerWeddingUserServlet = new RegisterWeddingUserServlet(userServices, weddingUserServices, employeeServices, mapper);
 		//employee services pages
 		EmployeeHomeServlet employeeHomeServlet = new EmployeeHomeServlet(employeeServices, mapper);
 		AddCaterersServlet addCaterersServlet = new AddCaterersServlet(employeeServices, mapper);
@@ -75,6 +79,12 @@ public class ContextLoaderListener implements ServletContextListener {
 		ChoosePhotographersServlet choosePhotographersServlet = new ChoosePhotographersServlet(employeeServices, weddingUserServices, mapper);
 		ChooseVenuesServlet chooseVenuesServlet = new ChooseVenuesServlet(employeeServices, weddingUserServices, mapper);
 		CreateGiftRegistry createGiftRegistry = new CreateGiftRegistry(weddingUserServices, mapper);
+		//guest services pages
+		GuestHomeServlet guestHomeServlet = new GuestHomeServlet(guestServices, mapper);
+		ChooseMealServlet chooseMealServlet = new ChooseMealServlet(guestServices, mapper);
+		ConfirmAttendanceServlet confirmAttendanceServlet = new ConfirmAttendanceServlet(guestServices, weddingUserServices, mapper);
+		ViewWeddingDetailsServlet viewWeddingDetailsServlet = new ViewWeddingDetailsServlet(guestServices, weddingUserServices, mapper);
+		
 		
 		ServletContext context = sce.getServletContext();
 		//home page
@@ -99,6 +109,14 @@ public class ContextLoaderListener implements ServletContextListener {
 		context.addServlet("ChoosePhotographersServlet", choosePhotographersServlet).addMapping("/weddingUserHome/choosePhotographers/");
 		context.addServlet("ChooseVenuesServlet", chooseVenuesServlet).addMapping("/weddingUserHome/chooseVenues/");
 		context.addServlet("CreateGiftRegistry", createGiftRegistry).addMapping("/weddingUserHome/giftRegistry/");
+		//guest services pages
+		context.addServlet("ConfirmAttendanceServlet", confirmAttendanceServlet).addMapping("/guestHome/confirmAttendance/");
+		context.addServlet("GuestHomeServlet", guestHomeServlet).addMapping("/guestHome/");
+		context.addServlet("ChooseMealServlet", chooseMealServlet).addMapping("/guestHome/chooseMeal/");
+<<<<<<< HEAD
+=======
+		context.addServlet("ViewWeddingDetails", viewWeddingDetailsServlet).addMapping("/guestHome/viewWeddingDetails/");
+>>>>>>> refs/remotes/origin/development
 	}
 
 	@Override

@@ -152,7 +152,7 @@ public class RegisterGuestServlet extends HttpServlet{
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/guest/\">");
 		}
 		else{
-			Guest newGuest = new Guest(username,firstName,lastName,password,email,2,weddingPartyName, "", "");
+			Guest newGuest = new Guest(username,firstName,lastName,password,email,2,weddingPartyName, "", "", "",false);
 			guestServices.addGuest(newGuest);
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/\">");
 		}

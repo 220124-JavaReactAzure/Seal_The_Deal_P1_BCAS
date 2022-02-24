@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.sealTheDeal.models.Employee;
 import com.revature.sealTheDeal.models.WeddingUser;
+import com.revature.sealTheDeal.services.EmployeeServices;
 import com.revature.sealTheDeal.services.UserServices;
 import com.revature.sealTheDeal.services.WeddingUserServices;
 
@@ -34,13 +35,15 @@ public class RegisterWeddingUserServlet extends HttpServlet{
 	
 	UserServices userServices;
 	WeddingUserServices weddingUserServices;
+	EmployeeServices employeeServices;
 	ObjectMapper mapper;
 	
 	
-	public RegisterWeddingUserServlet(UserServices userServices, WeddingUserServices weddingUserServices,
+	public RegisterWeddingUserServlet(UserServices userServices, WeddingUserServices weddingUserServices,EmployeeServices employeeServices,
 			ObjectMapper mapper) {
 		this.userServices = userServices;
 		this.weddingUserServices = weddingUserServices;
+		this.employeeServices = employeeServices;
 		this.mapper = mapper;
 	}
 
@@ -232,7 +235,8 @@ public class RegisterWeddingUserServlet extends HttpServlet{
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/registration/weddingUser/\">");
 		}
 		else{
-			WeddingUser newWedding = new WeddingUser(username,firstName,lastName,password,email,3,weddingName,groomSpecies,groomName,brideSpecies,brideName,date,0);
+			WeddingUser newWedding = new WeddingUser(username,firstName,lastName,password,email,3,weddingName,groomSpecies,groomName,brideSpecies,brideName,date,0,0,"","","","","",0);
+			employeeServices.addWeddingDay("day"+date);
 			weddingUserServices.addWeddingUser(newWedding);
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/\">");
 		}

@@ -55,7 +55,7 @@ public class AddPhotographersServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		serviceName = req.getParameter("service_name");
-		price = Double.valueOf(req.getParameter("price"));
+		
 
 		resp.setContentType("text/html");
 		PrintWriter out = resp.getWriter();
@@ -72,9 +72,15 @@ public class AddPhotographersServlet extends HttpServlet {
 			out.println(
 					"<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/employeeHome/addPhotographers/\">");
 		}
+		
+		else if(employeeServices.CheckNumeric(req.getParameter("price").trim())) {
+			message = "PRICE MUST BE NUMERIC ONLY";
+			out.println(
+					"<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/employeeHome/addPhotographers/\">");
+		}
 
 		else {
-
+			price = Double.valueOf(req.getParameter("price"));
 			Booking newBooking = new Booking(serviceName, 4, price, false);
 
 			employeeServices.addBooking(newBooking);

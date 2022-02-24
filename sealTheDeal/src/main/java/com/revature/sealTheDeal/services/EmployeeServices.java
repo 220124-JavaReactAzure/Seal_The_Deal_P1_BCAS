@@ -73,5 +73,34 @@ public class EmployeeServices {
 	public void closeSessionEmployee() {
 		sessionEmployee = null;
 	}
+
+	public void addWeddingDay(String weddingDay) {
+		employeeDAO.addWeddingDay(weddingDay);
+		
+	}
+	
+	public Boolean CheckNumeric(String userInput) {
+		for(int i = 0; i<userInput.length(); i++) {
+			if(!(Character.isDigit(userInput.charAt(i)))){
+				if(userInput.charAt(i) != '.') {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public List<Booking> getByService(int serviceType, String weddingDay){
+		return employeeDAO.getByService(serviceType, weddingDay);
+	}
+
+	public Booking getBookedService(String bookedMusician, String weddingDay) {
+		return employeeDAO.getBookedService(bookedMusician, weddingDay);
+	}
+
+	public void updateBooking(Booking updateService, String weddingDay) {
+		employeeDAO.updateBooking(updateService, weddingDay);
+		
+	}
 	
 }
