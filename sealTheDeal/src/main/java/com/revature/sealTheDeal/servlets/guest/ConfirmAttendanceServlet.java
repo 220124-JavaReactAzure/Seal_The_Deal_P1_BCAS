@@ -23,7 +23,8 @@ public class ConfirmAttendanceServlet extends HttpServlet {
 	WeddingUserServices weddingUserServices;
 	WeddingUser weddingUser;
 
-	public ConfirmAttendanceServlet(GuestServices guestServices, WeddingUserServices weddingUserServices, ObjectMapper mapper) {
+	public ConfirmAttendanceServlet(GuestServices guestServices, WeddingUserServices weddingUserServices,
+			ObjectMapper mapper) {
 		this.guestServices = guestServices;
 		this.weddingUserServices = weddingUserServices;
 		this.mapper = mapper;
@@ -32,14 +33,14 @@ public class ConfirmAttendanceServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		currentGuest = guestServices.getSessionGuest();
-		weddingUser = weddingUserServices
+		weddingUser = weddingUserServices.verifyByWeddingName(currentGuest.getWeddingPartyName());
 		resp.setContentType("text/html");
 		PrintWriter out = resp.getWriter();
 		out.println("<style>" + "body {"
 				+ "background-image: url('https://ih1.redbubble.net/image.291419102.1980/st,small,507x507-pad,600x600,f8f8f8.u3.jpg');"
 				+ "background-repeat: no-repeat;" + "background-attachment: fixed;" + "background-size: contain;"
 				+ "background-position: center;" + "background-color: grey;" + "}" + "</style>");
-		
+
 		if (currentGuest.isAttending()) {
 			out.println("<h3>Cancel attendance to the " + currentGuest.getWeddingPartyName() + " wedding?</h3>");
 
@@ -62,29 +63,52 @@ public class ConfirmAttendanceServlet extends HttpServlet {
 					+ "<input type=\"radio\" id=\"is_not_attending\" name=\"confirm_attendance\" value=\"false\">"
 					+ "<label for=\"is_not_attending\">Check if not attending</label><br>"
 					+ "<input type=\"checkbox\" id=\"plus_one\" name=\"plus_one\" value=\"true\">"
-					 + "<label for=\"plus_one\"> Would you like to bring a Plus One?</label><br>"
+					+ "<label for=\"plus_one\"> Would you like to bring a Plus One?</label><br>"
 					+ "<label for=\"plus_one_name\">Enter name of your Plus One: </label>"
-					+ "<input type=\"text\" id=\"plus_one_name\" name=\"plus_one_name\"><br>"
-					+ "</P>" + "<input type=\"hidden\" name=\"cancel_attendance\" value=\"false\">"
+					+ "<input type=\"text\" id=\"plus_one_name\" name=\"plus_one_name\"><br>" + "</P>"
+					+ "<input type=\"hidden\" name=\"cancel_attendance\" value=\"false\">"
 					+ "<input type=\"submit\" value=\"Submit\">" + "</form>" + "</body>" + "</html>");
 
 			out.println("<form action=\"http://localhost:8080/sealTheDeal/guestHome/\">"
 					+ "<input type=\"submit\" value=\"Return\">" + "</form>");
 		}
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		resp.setContentType("text/html");
 		PrintWriter out = resp.getWriter();
 		boolean cancelAttendance = Boolean.valueOf(req.getParameter("cancel_attendance"));
-		
-		if(cancelAttendance) {
+
+		if (cancelAttendance) {
+
 			currentGuest.setAttendance(false);
-		if(currentGuest.getPlusOne().equals("")){
-			
+			if (currentGuest.getPlusOne().equals("")) {
+				weddingUser.setNumberOfGuests(weddingUser.getNumberOfGuests() - 1);
+
+			} else {
+				weddingUser.setNumberOfGuests(weddingUser.getNumberOfGuests() - 2);
+				currentGuest.setPlusOne("");
+			}
+			weddingUserServices.updateWeddingUserWithSessionMethod(weddingUser);
+			guestServices.updateGuestWithSessionMethod(currentGuest);
+			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/guestHome/\">");
+		} else {
+			boolean confirmAttendance = Boolean.valueOf(req.getParameter("confirm_attendance"));
+			if (confirmAttendance) {
+				currentGuest.setAttendance(true);
+				if (req.getParameter("plus_one").equals("true")) {
+					currentGuest.setPlusOne(req.getParameter("plus_one_name"));
+					weddingUser.setNumberOfGuests(weddingUser.getNumberOfGuests() + 2);
+				} else {
+					weddingUser.setNumberOfGuests(weddingUser.getNumberOfGuests() + 1);
+				}
+				weddingUserServices.updateWeddingUserWithSessionMethod(weddingUser);
+				guestServices.updateGuestWithSessionMethod(currentGuest);
+				out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/guestHome/\">");
+			}
 		}
-		}
-}
+
+	}
 }

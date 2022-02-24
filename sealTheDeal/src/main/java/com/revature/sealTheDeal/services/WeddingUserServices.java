@@ -35,7 +35,7 @@ public class WeddingUserServices {
 		weddingUserDAO.updateWeddingUserWithHQL(weddingUser);
 	}
 
-	public boolean verifyByWeddingName(String weddingName) {
+	public WeddingUser verifyByWeddingName(String weddingName) {
 		return weddingUserDAO.verifyByWeddingName(weddingName);
 	}
 	
