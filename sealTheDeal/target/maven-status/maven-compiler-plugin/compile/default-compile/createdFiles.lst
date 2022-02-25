@@ -6,7 +6,6 @@ com\revature\sealTheDeal\models\WeddingUser.class
 com\revature\sealTheDeal\services\WeddingUserServices.class
 com\revature\sealTheDeal\web\util\ContextLoaderListener.class
 com\revature\sealTheDeal\servlets\guest\ViewWeddingDetailsServlet.class
-com\revature\sealTheDeal\servlets\guest\ViewGiftRegistryServlet.class
 com\revature\sealTheDeal\servlets\weddingUser\ChooseCaterersServlet.class
 com\revature\sealTheDeal\servlets\weddingUser\ChoosePhotographersServlet.class
 com\revature\sealTheDeal\servlets\registration\RegisterEmployeeServlet.class
@@ -24,7 +23,6 @@ com\revature\sealTheDeal\models\Booking.class
 com\revature\sealTheDeal\util\HibernateUtil.class
 com\revature\sealTheDeal\dao\EmployeeDAO.class
 com\revature\sealTheDeal\servlets\employee\AddCaterersServlet.class
-com\revature\sealTheDeal\servlets\weddingUser\CreateGiftRegistry.class
 com\revature\sealTheDeal\models\Employee.class
 com\revature\sealTheDeal\dao\WeddingUserDAO.class
 com\revature\sealTheDeal\servlets\employee\AddFloristsServlet.class

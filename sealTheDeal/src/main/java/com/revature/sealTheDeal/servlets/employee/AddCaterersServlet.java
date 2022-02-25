@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.sealTheDeal.models.Booking;
 import com.revature.sealTheDeal.services.EmployeeServices;
-import com.revature.sealTheDeal.servlets.HomeServlet;
 
+@SuppressWarnings("serial")
 public class AddCaterersServlet extends HttpServlet {
 
 	EmployeeServices employeeServices;

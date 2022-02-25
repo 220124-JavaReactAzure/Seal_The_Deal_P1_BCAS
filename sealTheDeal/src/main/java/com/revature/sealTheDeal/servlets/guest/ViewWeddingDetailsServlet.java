@@ -14,6 +14,7 @@ import com.revature.sealTheDeal.models.WeddingUser;
 import com.revature.sealTheDeal.services.GuestServices;
 import com.revature.sealTheDeal.services.WeddingUserServices;
  
+@SuppressWarnings("serial")
 public class ViewWeddingDetailsServlet extends HttpServlet {
 
 	String message = null;

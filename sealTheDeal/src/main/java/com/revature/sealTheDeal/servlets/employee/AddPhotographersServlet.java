@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.sealTheDeal.models.Booking;
 import com.revature.sealTheDeal.services.EmployeeServices;
 
+@SuppressWarnings("serial")
 public class AddPhotographersServlet extends HttpServlet {
 
 	EmployeeServices employeeServices;
@@ -36,7 +37,7 @@ public class AddPhotographersServlet extends HttpServlet {
 				+ "background-repeat: no-repeat;" + "background-attachment: fixed;" + "background-size: contain;"
 				+ "background-position: center;" + "background-color: grey;" + "}" + "</style>");
 
-		out.println("<h3>Add Photograpger Info</h3>");
+		out.println("<h3>Add Photographer Info</h3>");
 		if (message != null) {
 			out.println("<p style=\"color:red;\">" + message + "</p>");
 		}

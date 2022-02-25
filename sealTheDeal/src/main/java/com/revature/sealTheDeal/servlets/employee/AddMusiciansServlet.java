@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.sealTheDeal.models.Booking;
 import com.revature.sealTheDeal.services.EmployeeServices;
 
+@SuppressWarnings("serial")
 public class AddMusiciansServlet extends HttpServlet {
 
 	EmployeeServices employeeServices;

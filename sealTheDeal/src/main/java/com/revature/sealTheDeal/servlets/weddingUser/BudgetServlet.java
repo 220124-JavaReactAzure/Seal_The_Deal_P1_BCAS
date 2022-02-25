@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.sealTheDeal.models.WeddingUser;
 import com.revature.sealTheDeal.services.WeddingUserServices;
 
+@SuppressWarnings("serial")
 public class BudgetServlet extends HttpServlet {
 	
 	String message = null;

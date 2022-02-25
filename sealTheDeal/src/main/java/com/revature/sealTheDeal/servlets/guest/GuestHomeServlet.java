@@ -2,7 +2,6 @@ package com.revature.sealTheDeal.servlets.guest;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,10 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.sealTheDeal.models.Guest;
-import com.revature.sealTheDeal.models.WeddingUser;
 import com.revature.sealTheDeal.services.GuestServices;
-import com.revature.sealTheDeal.servlets.employee.AddCaterersServlet;
 
+@SuppressWarnings("serial")
 public class GuestHomeServlet extends HttpServlet {
 
 	GuestServices guestServices;
@@ -43,8 +41,6 @@ public class GuestHomeServlet extends HttpServlet {
 				+ "<input type=\"submit\" value=\"RSVP\">" + "</form>");
 		out.println("<form action=\"http://localhost:8080/sealTheDeal/guestHome/viewWeddingDetails/\">"
 				+ "<input type=\"submit\" value=\"View Wedding Details\">" + "</form>");
-		out.println("<form action=\"http://localhost:8080/sealTheDeal/guestHome/giftRegistry/\">"
-				+ "<input type=\"submit\" value=\"Select From Gift Registry\">" + "</form>");
 		out.println("<form action=\"http://localhost:8080/sealTheDeal/\">" + "<input type=\"submit\" value=\"Logout\">"
 				+ "</form>");
 	}

@@ -5,19 +5,18 @@ import java.io.PrintWriter;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.sealTheDeal.models.Employee;
 import com.revature.sealTheDeal.models.WeddingUser;
 import com.revature.sealTheDeal.services.EmployeeServices;
 import com.revature.sealTheDeal.services.UserServices;
 import com.revature.sealTheDeal.services.WeddingUserServices;
 
 
+@SuppressWarnings("serial")
 public class RegisterWeddingUserServlet extends HttpServlet{
 	
 	String weddingName = null;
@@ -184,7 +183,6 @@ public class RegisterWeddingUserServlet extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		message = "day" + req.getParameter("month") + req.getParameter("day") + req.getParameter("year");
 		
 		
 		weddingName = req.getParameter("wedding_name");
