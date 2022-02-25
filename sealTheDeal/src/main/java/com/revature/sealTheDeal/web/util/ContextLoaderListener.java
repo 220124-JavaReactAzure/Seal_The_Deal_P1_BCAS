@@ -7,7 +7,6 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import org.apache.log4j.PropertyConfigurator;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.sealTheDeal.dao.EmployeeDAO;
@@ -93,10 +92,7 @@ public class ContextLoaderListener implements ServletContextListener {
 		
 		
 		ServletContext context = sce.getServletContext();
-		String log4jConfigFile = context.getInitParameter("log4j-config-location");
-        String fullPath = context.getRealPath("") + File.separator + log4jConfigFile;
-         
-        PropertyConfigurator.configure(fullPath);
+		
 		//home page
 		context.addServlet("HomeServlet", homeServlet).addMapping("/");
 		//registration pages
