@@ -5,6 +5,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.sealTheDeal.dao.EmployeeDAO;
 import com.revature.sealTheDeal.dao.GuestDAO;
@@ -34,7 +35,7 @@ import com.revature.sealTheDeal.servlets.weddingUser.ChooseFloristsServlet;
 import com.revature.sealTheDeal.servlets.weddingUser.ChooseMusiciansServlet;
 import com.revature.sealTheDeal.servlets.weddingUser.ChoosePhotographersServlet;
 import com.revature.sealTheDeal.servlets.weddingUser.ChooseVenuesServlet;
-import com.revature.sealTheDeal.servlets.weddingUser.CreateGiftRegistry;
+import com.revature.sealTheDeal.servlets.weddingUser.ViewYourWeddingDetailsServlet;
 import com.revature.sealTheDeal.servlets.weddingUser.WeddingUserHomeServlet;
 
 @WebListener
@@ -78,7 +79,7 @@ public class ContextLoaderListener implements ServletContextListener {
 		ChooseMusiciansServlet chooseMusiciansServlet = new ChooseMusiciansServlet(employeeServices, weddingUserServices, mapper);
 		ChoosePhotographersServlet choosePhotographersServlet = new ChoosePhotographersServlet(employeeServices, weddingUserServices, mapper);
 		ChooseVenuesServlet chooseVenuesServlet = new ChooseVenuesServlet(employeeServices, weddingUserServices, mapper);
-		CreateGiftRegistry createGiftRegistry = new CreateGiftRegistry(weddingUserServices, mapper);
+		ViewYourWeddingDetailsServlet viewYourWeddingDetailsServlet = new ViewYourWeddingDetailsServlet(weddingUserServices, mapper);
 		//guest services pages
 		GuestHomeServlet guestHomeServlet = new GuestHomeServlet(guestServices, mapper);
 		ChooseMealServlet chooseMealServlet = new ChooseMealServlet(guestServices, mapper);
@@ -87,6 +88,7 @@ public class ContextLoaderListener implements ServletContextListener {
 		
 		
 		ServletContext context = sce.getServletContext();
+		
 		//home page
 		context.addServlet("HomeServlet", homeServlet).addMapping("/");
 		//registration pages
@@ -108,7 +110,7 @@ public class ContextLoaderListener implements ServletContextListener {
 		context.addServlet("ChooseMusiciansServlet", chooseMusiciansServlet).addMapping("/weddingUserHome/chooseMusicians/");
 		context.addServlet("ChoosePhotographersServlet", choosePhotographersServlet).addMapping("/weddingUserHome/choosePhotographers/");
 		context.addServlet("ChooseVenuesServlet", chooseVenuesServlet).addMapping("/weddingUserHome/chooseVenues/");
-		context.addServlet("CreateGiftRegistry", createGiftRegistry).addMapping("/weddingUserHome/giftRegistry/");
+		context.addServlet("ViewYourWeddingDetailsServlet", viewYourWeddingDetailsServlet).addMapping("/weddingUserHome/viewYourWeddingDetails/");
 		//guest services pages
 		context.addServlet("ConfirmAttendanceServlet", confirmAttendanceServlet).addMapping("/guestHome/confirmAttendance/");
 		context.addServlet("GuestHomeServlet", guestHomeServlet).addMapping("/guestHome/");

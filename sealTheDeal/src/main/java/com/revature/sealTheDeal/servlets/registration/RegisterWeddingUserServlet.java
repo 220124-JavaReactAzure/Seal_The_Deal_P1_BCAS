@@ -2,21 +2,21 @@ package com.revature.sealTheDeal.servlets.registration;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.sealTheDeal.models.Employee;
 import com.revature.sealTheDeal.models.WeddingUser;
 import com.revature.sealTheDeal.services.EmployeeServices;
 import com.revature.sealTheDeal.services.UserServices;
 import com.revature.sealTheDeal.services.WeddingUserServices;
 
 
+@SuppressWarnings("serial")
 public class RegisterWeddingUserServlet extends HttpServlet{
 	
 	String weddingName = null;
@@ -38,6 +38,7 @@ public class RegisterWeddingUserServlet extends HttpServlet{
 	EmployeeServices employeeServices;
 	ObjectMapper mapper;
 	
+	private static final Logger LOGGER = Logger.getLogger(RegisterWeddingUserServlet.class.getName());
 	
 	public RegisterWeddingUserServlet(UserServices userServices, WeddingUserServices weddingUserServices,EmployeeServices employeeServices,
 			ObjectMapper mapper) {
@@ -182,7 +183,6 @@ public class RegisterWeddingUserServlet extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		message = "day" + req.getParameter("month") + req.getParameter("day") + req.getParameter("year");
 		
 		
 		weddingName = req.getParameter("wedding_name");
@@ -237,7 +237,9 @@ public class RegisterWeddingUserServlet extends HttpServlet{
 		else{
 			WeddingUser newWedding = new WeddingUser(username,firstName,lastName,password,email,3,weddingName,groomSpecies,groomName,brideSpecies,brideName,date,0,0,"","","","","",0);
 			employeeServices.addWeddingDay("day"+date);
+			LOGGER.info("New wedding date added");
 			weddingUserServices.addWeddingUser(newWedding);
+			LOGGER.info("New wedding user added");
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/\">");
 		}
 		

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,10 +12,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.sealTheDeal.models.Employee;
 import com.revature.sealTheDeal.services.EmployeeServices;
 
+@SuppressWarnings("serial")
 public class EmployeeHomeServlet extends HttpServlet {
 
 	EmployeeServices employeeServices; 
 	ObjectMapper mapper;
+	
+	
+	
 	public EmployeeHomeServlet(EmployeeServices employeeServices, ObjectMapper mapper) {
 		this.employeeServices = employeeServices;
 		this.mapper = mapper;

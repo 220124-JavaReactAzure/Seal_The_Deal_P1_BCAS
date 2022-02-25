@@ -2,6 +2,7 @@ package com.revature.sealTheDeal.servlets.employee;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.sealTheDeal.models.Booking;
 import com.revature.sealTheDeal.services.EmployeeServices;
 
+@SuppressWarnings("serial")
 public class AddPhotographersServlet extends HttpServlet {
 
 	EmployeeServices employeeServices;
@@ -19,6 +21,7 @@ public class AddPhotographersServlet extends HttpServlet {
 	String serviceName = null;
 	String message = null;
 	double price = 0;
+	private static final Logger LOGGER = Logger.getLogger(AddPhotographersServlet.class.getName());
 	
 	public AddPhotographersServlet(EmployeeServices employeeServices, ObjectMapper mapper) {
 		this.employeeServices = employeeServices;
@@ -34,7 +37,7 @@ public class AddPhotographersServlet extends HttpServlet {
 				+ "background-repeat: no-repeat;" + "background-attachment: fixed;" + "background-size: contain;"
 				+ "background-position: center;" + "background-color: grey;" + "}" + "</style>");
 
-		out.println("<h3>Add Photograpger Info</h3>");
+		out.println("<h3>Add Photographer Info</h3>");
 		if (message != null) {
 			out.println("<p style=\"color:red;\">" + message + "</p>");
 		}
@@ -84,6 +87,7 @@ public class AddPhotographersServlet extends HttpServlet {
 			Booking newBooking = new Booking(serviceName, 4, price, false);
 
 			employeeServices.addBooking(newBooking);
+			LOGGER.info("New photographer booking added");
 			out.println(
 					"<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/employeeHome/\">");
 

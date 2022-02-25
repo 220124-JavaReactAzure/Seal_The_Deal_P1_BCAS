@@ -2,20 +2,20 @@ package com.revature.sealTheDeal.servlets.registration;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.sealTheDeal.dao.EmployeeDAO;
 import com.revature.sealTheDeal.models.Employee;
 import com.revature.sealTheDeal.services.EmployeeServices;
 import com.revature.sealTheDeal.services.UserServices;
 
-//@WebServlet("/registration/employee/")
+
+@SuppressWarnings("serial")
 public class RegisterEmployeeServlet extends HttpServlet{
 	
 	String employeeID = null;
@@ -30,6 +30,8 @@ public class RegisterEmployeeServlet extends HttpServlet{
 	UserServices userServices;
 	EmployeeServices employeeServices;
 	ObjectMapper mapper;
+	
+	private static final Logger LOGGER = Logger.getLogger(RegisterEmployeeServlet.class.getName());
 	
 	
 	public RegisterEmployeeServlet(UserServices userServices, EmployeeServices employeeServices, ObjectMapper mapper) {
@@ -152,6 +154,7 @@ public class RegisterEmployeeServlet extends HttpServlet{
 			Employee newEmployee = new Employee(username,firstName,lastName,password,email,1,employeeID,true);
 			employeeServices.deleteByEmployeeID(employeeID);
 			employeeServices.addEmployee(newEmployee);
+			LOGGER.info("New employee added");
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/\">");
 		}
 		

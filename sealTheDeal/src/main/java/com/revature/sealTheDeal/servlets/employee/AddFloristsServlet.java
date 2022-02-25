@@ -2,6 +2,7 @@ package com.revature.sealTheDeal.servlets.employee;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.sealTheDeal.models.Booking;
 import com.revature.sealTheDeal.services.EmployeeServices;
 
+@SuppressWarnings("serial")
 public class AddFloristsServlet extends HttpServlet{
 	
 	EmployeeServices employeeServices;
@@ -20,6 +22,8 @@ public class AddFloristsServlet extends HttpServlet{
 	String serviceName = null;
 	String message = null;
 	double price = 0;
+	
+	private static final Logger LOGGER = Logger.getLogger(AddFloristsServlet.class.getName());
 	
 	public AddFloristsServlet(EmployeeServices employeeServices, ObjectMapper mapper) {
 		this.employeeServices = employeeServices;
@@ -86,6 +90,8 @@ public class AddFloristsServlet extends HttpServlet{
 			Booking newBooking = new Booking(serviceName, 2, price, false);
 
 			employeeServices.addBooking(newBooking);
+			
+			LOGGER.info("New florist booking added");
 			out.println(
 					"<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/employeeHome/\">");
 

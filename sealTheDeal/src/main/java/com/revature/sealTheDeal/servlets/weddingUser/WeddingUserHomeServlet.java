@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.sealTheDeal.models.WeddingUser;
 import com.revature.sealTheDeal.services.WeddingUserServices;
 
+@SuppressWarnings("serial")
 public class WeddingUserHomeServlet extends HttpServlet {
 	
 	WeddingUserServices weddingUserServices; 
@@ -40,6 +41,9 @@ public class WeddingUserHomeServlet extends HttpServlet {
 	    out.print("<h3>Welcome Back " + currentWeddingUser.getFirstName() + "</h3>");
 	    
 	    
+	    out.println("<form action=\"http://localhost:8080/sealTheDeal/weddingUserHome/viewYourWeddingDetails/\">"
+	    		+ "<input type=\"submit\" value=\"View Wedding Details\">"
+	    		+ "</form>");
 	    out.println("<form action=\"http://localhost:8080/sealTheDeal/weddingUserHome/budget/\">"
 	    		+ "<input type=\"submit\" value=\"Set Budget\">"
 	    		+ "</form>");
@@ -57,9 +61,6 @@ public class WeddingUserHomeServlet extends HttpServlet {
 	    		+ "</form>");
 		out.println("<form action=\"http://localhost:8080/sealTheDeal/weddingUserHome/chooseVenues/\">"
 	    		+ "<input type=\"submit\" value=\"Choose Venue\">"
-	    		+ "</form>");
-		out.println("<form action=\"http://localhost:8080/sealTheDeal/weddingUserHome/giftRegistry/\">"
-	    		+ "<input type=\"submit\" value=\"Create Gift Registry\">"
 	    		+ "</form>");
 		out.println("<form action=\"http://localhost:8080/sealTheDeal/\">"
 	    		+ "<input type=\"submit\" value=\"Logout\">"

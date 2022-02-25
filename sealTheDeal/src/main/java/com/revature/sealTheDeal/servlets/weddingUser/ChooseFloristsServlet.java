@@ -15,6 +15,7 @@ import com.revature.sealTheDeal.models.WeddingUser;
 import com.revature.sealTheDeal.services.EmployeeServices;
 import com.revature.sealTheDeal.services.WeddingUserServices;
 
+@SuppressWarnings("serial")
 public class ChooseFloristsServlet extends HttpServlet {
 	
 	String message = null;

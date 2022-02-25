@@ -13,7 +13,8 @@ import com.revature.sealTheDeal.models.Guest;
 import com.revature.sealTheDeal.models.WeddingUser;
 import com.revature.sealTheDeal.services.GuestServices;
 import com.revature.sealTheDeal.services.WeddingUserServices;
-
+ 
+@SuppressWarnings("serial")
 public class ViewWeddingDetailsServlet extends HttpServlet {
 
 	String message = null;
@@ -80,6 +81,9 @@ public class ViewWeddingDetailsServlet extends HttpServlet {
 
 		out.print("<h3>Hello, " + currentGuest.getFirstName() + "</h3>");
 		out.println("<h3> Details for the " + currentGuest.getWeddingPartyName() + " wedding</h3>");
+		out.println("<h3> The " + weddingUser.getPetTypeGroom() + " groom: " + weddingUser.getPetNameGroom() + "</h3>");
+		out.println("<h3> The " + weddingUser.getPetTypeBride() + " bride: " + weddingUser.getPetNameBride() +"</h3>");
+		out.println("<h3> Current number of confimed guest: " + weddingUser.getNumberOfGuests() + "</h3>");
 		out.println("<h3> The day of the wedding is: " + dayOfWedding + "</h3>");
 		out.println("<h3> The venue of the wedding is: " + venue + "</h3>");
 		out.println("<h3> The caterer for the wedding will be: " + caterer + "</h3>");

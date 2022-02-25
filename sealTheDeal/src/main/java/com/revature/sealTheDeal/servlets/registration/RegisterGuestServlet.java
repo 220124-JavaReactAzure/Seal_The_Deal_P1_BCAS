@@ -2,24 +2,21 @@ package com.revature.sealTheDeal.servlets.registration;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.sealTheDeal.dao.EmployeeDAO;
-import com.revature.sealTheDeal.dao.GuestDAO;
-import com.revature.sealTheDeal.models.Employee;
 import com.revature.sealTheDeal.models.Guest;
-import com.revature.sealTheDeal.services.EmployeeServices;
 import com.revature.sealTheDeal.services.GuestServices;
 import com.revature.sealTheDeal.services.UserServices;
 import com.revature.sealTheDeal.services.WeddingUserServices;
 
 
+@SuppressWarnings("serial")
 public class RegisterGuestServlet extends HttpServlet{
 	
 	String weddingPartyName = null;
@@ -30,6 +27,8 @@ public class RegisterGuestServlet extends HttpServlet{
 	String password = null;
 	String passwordVerify = null;
 	String message = null;
+	
+	private static final Logger LOGGER = Logger.getLogger(RegisterGuestServlet.class.getName());
 	
 	UserServices userServices;
 	WeddingUserServices weddingUserServices;
@@ -154,6 +153,7 @@ public class RegisterGuestServlet extends HttpServlet{
 		else{
 			Guest newGuest = new Guest(username,firstName,lastName,password,email,2,weddingPartyName, "", "", "",false);
 			guestServices.addGuest(newGuest);
+			LOGGER.info("New guest added");
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/\">");
 		}
 		
