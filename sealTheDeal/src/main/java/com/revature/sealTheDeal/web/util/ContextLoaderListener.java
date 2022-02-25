@@ -122,6 +122,7 @@ public class ContextLoaderListener implements ServletContextListener {
 		context.addServlet("GuestHomeServlet", guestHomeServlet).addMapping("/guestHome/");
 		context.addServlet("ChooseMealServlet", chooseMealServlet).addMapping("/guestHome/chooseMeal/");
 		context.addServlet("ViewWeddingDetails", viewWeddingDetailsServlet).addMapping("/guestHome/viewWeddingDetails/");
+
 	}
 
 	@Override
