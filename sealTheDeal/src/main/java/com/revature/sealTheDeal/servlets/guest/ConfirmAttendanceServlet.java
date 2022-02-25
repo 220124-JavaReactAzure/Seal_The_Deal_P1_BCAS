@@ -2,6 +2,7 @@ package com.revature.sealTheDeal.servlets.guest;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +14,7 @@ import com.revature.sealTheDeal.models.Guest;
 import com.revature.sealTheDeal.models.WeddingUser;
 import com.revature.sealTheDeal.services.GuestServices;
 import com.revature.sealTheDeal.services.WeddingUserServices;
+import com.revature.sealTheDeal.servlets.employee.AddCaterersServlet;
 
 public class ConfirmAttendanceServlet extends HttpServlet {
 
@@ -22,6 +24,8 @@ public class ConfirmAttendanceServlet extends HttpServlet {
 	ObjectMapper mapper;
 	WeddingUserServices weddingUserServices;
 	WeddingUser weddingUser;
+	
+	private static final Logger LOGGER = Logger.getLogger(ConfirmAttendanceServlet.class.getName());
 
 	public ConfirmAttendanceServlet(GuestServices guestServices, WeddingUserServices weddingUserServices,
 			ObjectMapper mapper) {
@@ -93,6 +97,7 @@ public class ConfirmAttendanceServlet extends HttpServlet {
 			}
 			weddingUserServices.updateWeddingUserWithSessionMethod(weddingUser);
 			guestServices.updateGuestWithSessionMethod(currentGuest);
+			LOGGER.info("Updated wedding attendance");
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/guestHome/\">");
 		} else {
 			boolean confirmAttendance = Boolean.valueOf(req.getParameter("confirm_attendance"));
@@ -114,6 +119,7 @@ public class ConfirmAttendanceServlet extends HttpServlet {
 				}
 				weddingUserServices.updateWeddingUserWithSessionMethod(weddingUser);
 				guestServices.updateGuestWithSessionMethod(currentGuest);
+				LOGGER.info("Plus One attendance updated");
 				out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/guestHome/\">");
 			}else {
 				out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/guestHome/\">");

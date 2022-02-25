@@ -2,6 +2,7 @@ package com.revature.sealTheDeal.servlets.employee;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +20,7 @@ public class AddPhotographersServlet extends HttpServlet {
 	String serviceName = null;
 	String message = null;
 	double price = 0;
+	private static final Logger LOGGER = Logger.getLogger(AddPhotographersServlet.class.getName());
 	
 	public AddPhotographersServlet(EmployeeServices employeeServices, ObjectMapper mapper) {
 		this.employeeServices = employeeServices;
@@ -84,6 +86,7 @@ public class AddPhotographersServlet extends HttpServlet {
 			Booking newBooking = new Booking(serviceName, 4, price, false);
 
 			employeeServices.addBooking(newBooking);
+			LOGGER.info("New photographer booking added");
 			out.println(
 					"<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/employeeHome/\">");
 

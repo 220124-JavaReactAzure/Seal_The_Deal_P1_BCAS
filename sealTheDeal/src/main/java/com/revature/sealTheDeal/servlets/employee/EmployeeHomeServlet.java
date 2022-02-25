@@ -2,6 +2,7 @@ package com.revature.sealTheDeal.servlets.employee;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +18,9 @@ public class EmployeeHomeServlet extends HttpServlet {
 
 	EmployeeServices employeeServices; 
 	ObjectMapper mapper;
+	
+	
+	
 	public EmployeeHomeServlet(EmployeeServices employeeServices, ObjectMapper mapper) {
 		this.employeeServices = employeeServices;
 		this.mapper = mapper;

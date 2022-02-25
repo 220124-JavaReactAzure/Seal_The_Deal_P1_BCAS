@@ -2,6 +2,7 @@ package com.revature.sealTheDeal.servlets.guest;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.sealTheDeal.models.Guest;
 import com.revature.sealTheDeal.services.GuestServices;
+import com.revature.sealTheDeal.servlets.employee.EmployeeHomeServlet;
 
 public class ChooseMealServlet extends HttpServlet {
 
@@ -18,6 +20,8 @@ public class ChooseMealServlet extends HttpServlet {
 	Guest currentGuest;
 	GuestServices guestServices;
 	ObjectMapper mapper;
+	
+	private static final Logger LOGGER = Logger.getLogger(ChooseMealServlet.class.getName());
 
 	public ChooseMealServlet(GuestServices guestServices, ObjectMapper mapper) {
 		this.guestServices = guestServices;
@@ -123,11 +127,13 @@ public class ChooseMealServlet extends HttpServlet {
 				currentGuest.setFoodType("");
 				currentGuest.setPlusOneFoodType("");
 				guestServices.updateGuestWithSessionMethod(currentGuest);
+				LOGGER.info("Meal choice cancelled");
 				out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/guestHome/\">");
 			}else {
 				currentGuest.setFoodType(req.getParameter("food_type"));
 				currentGuest.setPlusOneFoodType(req.getParameter("plus_one_food_type"));
 				guestServices.updateGuestWithSessionMethod(currentGuest);
+				LOGGER.info("Meal choice updated");
 				out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/guestHome/\">");
 			}		
 		}else {
@@ -135,10 +141,12 @@ public class ChooseMealServlet extends HttpServlet {
 			if(cancelMeal) {
 				currentGuest.setFoodType("");
 				guestServices.updateGuestWithSessionMethod(currentGuest);
+				LOGGER.info("Meal choice cancelled");
 				out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/guestHome/\">");
 			}else {
 				currentGuest.setFoodType(req.getParameter("food_type"));
 				guestServices.updateGuestWithSessionMethod(currentGuest);
+				LOGGER.info("Meal choice updated");
 				out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/guestHome/\">");
 			}
 		}
