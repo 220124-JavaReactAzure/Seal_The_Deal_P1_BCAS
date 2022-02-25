@@ -3,11 +3,15 @@ package com.revature.sealTheDeal.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.sealTheDeal.models.Employee;
@@ -32,6 +36,11 @@ public class HomeServlet extends HttpServlet{
 	WeddingUserServices weddingUserServices;
 	ObjectMapper mapper;
 	
+	
+	static final Logger LOGGER = LogManager.getLogger(HomeServlet.class);
+ 
+        
+        
 	public HomeServlet(UserServices userServices, EmployeeServices employeeServices, GuestServices guestServices, WeddingUserServices weddingUserServices, ObjectMapper mapper) {
 		this.userServices = userServices;
 		this.employeeServices = employeeServices;
@@ -107,16 +116,19 @@ public class HomeServlet extends HttpServlet{
 				case 1:
 					Employee currentEmployee = employeeServices.getEmployeeByUsername(username);
 					employeeServices.setSessionEmployee(currentEmployee);
+					LOGGER.info("Successful employee login");
 					out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/employeeHome/\">");
 					break;
 				case 2:
 					Guest currentGuest = guestServices.getGuestByUsername(username);
 					guestServices.setSessionGuest(currentGuest);
+					LOGGER.info("Successful guest login");
 					out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/guestHome/\">");
 					break;
 				case 3:
 					WeddingUser currentWeddingUser = weddingUserServices.getWeddingUserByUsername(username);
 					weddingUserServices.setSessionWeddingUser(currentWeddingUser);
+					LOGGER.info("Successful wedding user login");
 					out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/weddingUserHome/\">");
 					break;
 				default:
