@@ -26,7 +26,7 @@ __let the puns begin__
 ![ERD](https://cdn.discordapp.com/attachments/938111861033955350/946801171153182831/unknown.png)
 
 ### HOW TO INIT
-- run tomcat and go to localhost:8080/SealTheDeal
+- run tomcat and go to localhost:8080/sealTheDeal
 
 ### CONTRIBUTERS
 - Brandon Clark and Andrew Snyder
