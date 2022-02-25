@@ -2,6 +2,7 @@ package com.revature.sealTheDeal.servlets.registration;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,6 +39,7 @@ public class RegisterWeddingUserServlet extends HttpServlet{
 	EmployeeServices employeeServices;
 	ObjectMapper mapper;
 	
+	private static final Logger LOGGER = Logger.getLogger(RegisterWeddingUserServlet.class.getName());
 	
 	public RegisterWeddingUserServlet(UserServices userServices, WeddingUserServices weddingUserServices,EmployeeServices employeeServices,
 			ObjectMapper mapper) {
@@ -237,7 +239,9 @@ public class RegisterWeddingUserServlet extends HttpServlet{
 		else{
 			WeddingUser newWedding = new WeddingUser(username,firstName,lastName,password,email,3,weddingName,groomSpecies,groomName,brideSpecies,brideName,date,0,0,"","","","","",0);
 			employeeServices.addWeddingDay("day"+date);
+			LOGGER.info("New wedding date added");
 			weddingUserServices.addWeddingUser(newWedding);
+			LOGGER.info("New wedding user added");
 			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/\">");
 		}
 		

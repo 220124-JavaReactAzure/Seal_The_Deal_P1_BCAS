@@ -2,6 +2,7 @@ package com.revature.sealTheDeal.servlets.employee;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.sealTheDeal.models.Booking;
 import com.revature.sealTheDeal.services.EmployeeServices;
+import com.revature.sealTheDeal.servlets.HomeServlet;
 
 public class AddCaterersServlet extends HttpServlet {
 
@@ -20,6 +22,8 @@ public class AddCaterersServlet extends HttpServlet {
 	String serviceName = null;
 	String message = null;
 	double price = 0;
+	
+	private static final Logger LOGGER = Logger.getLogger(AddCaterersServlet.class.getName());
 
 	public AddCaterersServlet(EmployeeServices employeeServices, ObjectMapper mapper) {
 		this.employeeServices = employeeServices;
@@ -85,6 +89,7 @@ public class AddCaterersServlet extends HttpServlet {
 			price = Double.valueOf(req.getParameter("price"));
 			Booking newBooking = new Booking(serviceName, 1, price, false);
 			employeeServices.addBooking(newBooking);
+			LOGGER.info("New caterer booking added");
 			out.println(
 					"<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/sealTheDeal/employeeHome/\">");
 
