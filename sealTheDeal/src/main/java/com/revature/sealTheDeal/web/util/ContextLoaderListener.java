@@ -1,7 +1,5 @@
 package com.revature.sealTheDeal.web.util;
 
-import java.io.File;
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -37,7 +35,6 @@ import com.revature.sealTheDeal.servlets.weddingUser.ChooseFloristsServlet;
 import com.revature.sealTheDeal.servlets.weddingUser.ChooseMusiciansServlet;
 import com.revature.sealTheDeal.servlets.weddingUser.ChoosePhotographersServlet;
 import com.revature.sealTheDeal.servlets.weddingUser.ChooseVenuesServlet;
-import com.revature.sealTheDeal.servlets.weddingUser.CreateGiftRegistry;
 import com.revature.sealTheDeal.servlets.weddingUser.ViewYourWeddingDetailsServlet;
 import com.revature.sealTheDeal.servlets.weddingUser.WeddingUserHomeServlet;
 
@@ -82,7 +79,6 @@ public class ContextLoaderListener implements ServletContextListener {
 		ChooseMusiciansServlet chooseMusiciansServlet = new ChooseMusiciansServlet(employeeServices, weddingUserServices, mapper);
 		ChoosePhotographersServlet choosePhotographersServlet = new ChoosePhotographersServlet(employeeServices, weddingUserServices, mapper);
 		ChooseVenuesServlet chooseVenuesServlet = new ChooseVenuesServlet(employeeServices, weddingUserServices, mapper);
-		CreateGiftRegistry createGiftRegistry = new CreateGiftRegistry(weddingUserServices, mapper);
 		ViewYourWeddingDetailsServlet viewYourWeddingDetailsServlet = new ViewYourWeddingDetailsServlet(weddingUserServices, mapper);
 		//guest services pages
 		GuestHomeServlet guestHomeServlet = new GuestHomeServlet(guestServices, mapper);
@@ -114,7 +110,6 @@ public class ContextLoaderListener implements ServletContextListener {
 		context.addServlet("ChooseMusiciansServlet", chooseMusiciansServlet).addMapping("/weddingUserHome/chooseMusicians/");
 		context.addServlet("ChoosePhotographersServlet", choosePhotographersServlet).addMapping("/weddingUserHome/choosePhotographers/");
 		context.addServlet("ChooseVenuesServlet", chooseVenuesServlet).addMapping("/weddingUserHome/chooseVenues/");
-		context.addServlet("CreateGiftRegistry", createGiftRegistry).addMapping("/weddingUserHome/giftRegistry/");
 		context.addServlet("ViewYourWeddingDetailsServlet", viewYourWeddingDetailsServlet).addMapping("/weddingUserHome/viewYourWeddingDetails/");
 		//guest services pages
 		context.addServlet("ConfirmAttendanceServlet", confirmAttendanceServlet).addMapping("/guestHome/confirmAttendance/");

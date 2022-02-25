@@ -5,19 +5,17 @@ import java.io.PrintWriter;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.sealTheDeal.dao.EmployeeDAO;
 import com.revature.sealTheDeal.models.Employee;
 import com.revature.sealTheDeal.services.EmployeeServices;
 import com.revature.sealTheDeal.services.UserServices;
-import com.revature.sealTheDeal.servlets.employee.AddCaterersServlet;
 
-//@WebServlet("/registration/employee/")
+
+@SuppressWarnings("serial")
 public class RegisterEmployeeServlet extends HttpServlet{
 	
 	String employeeID = null;

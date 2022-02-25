@@ -14,8 +14,8 @@ import com.revature.sealTheDeal.models.Guest;
 import com.revature.sealTheDeal.models.WeddingUser;
 import com.revature.sealTheDeal.services.GuestServices;
 import com.revature.sealTheDeal.services.WeddingUserServices;
-import com.revature.sealTheDeal.servlets.employee.AddCaterersServlet;
 
+@SuppressWarnings("serial")
 public class ConfirmAttendanceServlet extends HttpServlet {
 
 	String message = null;

@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.sealTheDeal.models.WeddingUser;
 import com.revature.sealTheDeal.services.WeddingUserServices;
 
+@SuppressWarnings("serial")
 public class WeddingUserHomeServlet extends HttpServlet {
 	
 	WeddingUserServices weddingUserServices; 
@@ -60,9 +61,6 @@ public class WeddingUserHomeServlet extends HttpServlet {
 	    		+ "</form>");
 		out.println("<form action=\"http://localhost:8080/sealTheDeal/weddingUserHome/chooseVenues/\">"
 	    		+ "<input type=\"submit\" value=\"Choose Venue\">"
-	    		+ "</form>");
-		out.println("<form action=\"http://localhost:8080/sealTheDeal/weddingUserHome/giftRegistry/\">"
-	    		+ "<input type=\"submit\" value=\"Create Gift Registry\">"
 	    		+ "</form>");
 		out.println("<form action=\"http://localhost:8080/sealTheDeal/\">"
 	    		+ "<input type=\"submit\" value=\"Logout\">"

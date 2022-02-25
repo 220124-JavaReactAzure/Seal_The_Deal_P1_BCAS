@@ -5,22 +5,18 @@ import java.io.PrintWriter;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.sealTheDeal.dao.EmployeeDAO;
-import com.revature.sealTheDeal.dao.GuestDAO;
-import com.revature.sealTheDeal.models.Employee;
 import com.revature.sealTheDeal.models.Guest;
-import com.revature.sealTheDeal.services.EmployeeServices;
 import com.revature.sealTheDeal.services.GuestServices;
 import com.revature.sealTheDeal.services.UserServices;
 import com.revature.sealTheDeal.services.WeddingUserServices;
 
 
+@SuppressWarnings("serial")
 public class RegisterGuestServlet extends HttpServlet{
 	
 	String weddingPartyName = null;
