@@ -18,13 +18,15 @@ public class GuestDAO {
 	public boolean addGuest(Guest guest) {
 		try {
 			Session session = HibernateUtil.getSession();
+			Transaction transaction = session.beginTransaction();
 			session.save(guest);
+			transaction.commit();
+			HibernateUtil.closeSession();
 			return true;
 		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
-			return false;
-		} finally {
 			HibernateUtil.closeSession();
+			return false;
 		}
 	}
 

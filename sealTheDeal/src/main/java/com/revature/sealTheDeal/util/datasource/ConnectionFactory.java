@@ -39,7 +39,7 @@ public class ConnectionFactory {
 		Connection conn = null;
 
 		try {
-			conn = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("admin"),prop.getProperty("password"));
+			conn = DriverManager.getConnection(prop.getProperty("hibernate.connection.url"),prop.getProperty("hibernate.connection.username"),prop.getProperty("hibernate.connection.password"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
