@@ -40,6 +40,9 @@ public class WeddingUserHomeServlet extends HttpServlet {
 	    out.print("<h3>Welcome Back " + currentWeddingUser.getFirstName() + "</h3>");
 	    
 	    
+	    out.println("<form action=\"http://localhost:8080/sealTheDeal/weddingUserHome/viewYourWeddingDetails/\">"
+	    		+ "<input type=\"submit\" value=\"View Wedding Details\">"
+	    		+ "</form>");
 	    out.println("<form action=\"http://localhost:8080/sealTheDeal/weddingUserHome/budget/\">"
 	    		+ "<input type=\"submit\" value=\"Set Budget\">"
 	    		+ "</form>");

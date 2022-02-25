@@ -97,9 +97,13 @@ public class ConfirmAttendanceServlet extends HttpServlet {
 		} else {
 			boolean confirmAttendance = Boolean.valueOf(req.getParameter("confirm_attendance"));
 			int plusOne = 0;
-			if(req.getParameter("plus_one") != null) {
+			try {
+				if(req.getParameter("plus_one").equals("1")) {
 				plusOne += Integer.valueOf(req.getParameter("plus_one"));
+				}
+			} catch (NullPointerException e){
 			}
+			
 			if (confirmAttendance) {
 				currentGuest.setAttendance(true);
 				if (plusOne == 1) {

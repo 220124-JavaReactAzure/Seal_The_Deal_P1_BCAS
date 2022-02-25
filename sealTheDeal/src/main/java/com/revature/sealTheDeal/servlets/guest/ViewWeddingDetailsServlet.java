@@ -39,6 +39,21 @@ public class ViewWeddingDetailsServlet extends HttpServlet {
 		String photographer = "no photographer currently booked";
 		String musician = "no caterer currently booked";
 		String venue = "no venue currently booked...WHERE IS THE WEDDING?!";
+		String dayOfWedding = "";
+		String temp = Integer.toString(weddingUser.getDayOfWedding());
+		if(weddingUser.getDayOfWedding()>10000000) {
+			dayOfWedding += temp.charAt(0) + "" + temp.charAt(1);
+			dayOfWedding += "/";
+			dayOfWedding += temp.charAt(2) + "" + temp.charAt(3);
+			dayOfWedding += "/";
+			dayOfWedding += temp.charAt(4) + "" + temp.charAt(5) + "" + temp.charAt(6) + "" + temp.charAt(7);
+		}else {
+			dayOfWedding += "0" + "" + temp.charAt(0);
+			dayOfWedding += "/";
+			dayOfWedding += temp.charAt(1) + "" + temp.charAt(2);
+			dayOfWedding += "/";
+			dayOfWedding += temp.charAt(3) + "" + temp.charAt(4) + "" + temp.charAt(5) + "" + temp.charAt(6);
+		}
 
 		if (!(weddingUser.getBookedFlorist().equals(""))) {
 			florist = weddingUser.getBookedFlorist();
@@ -64,22 +79,38 @@ public class ViewWeddingDetailsServlet extends HttpServlet {
 				+ "background-position: center;" + "background-color: grey;" + "}" + "</style>");
 
 		out.print("<h3>Hello, " + currentGuest.getFirstName() + "</h3>");
-		out.println("<h3> Details for the" + currentGuest.getWeddingPartyName() + " wedding</h3>");
-		out.println("<h3> The day of the wedding is:" + weddingUser.getDayOfWedding() + "</h3>");
-		out.println("<h3> The venue of the wedding is:" + venue + "</h3>");
-		out.println("<h3> The caterer for the wedding will be:" + caterer + "</h3>");
-		out.println("<h3> You have ordered" + currentGuest.getFoodType() + "for dinner</h3>");
-
-		if (currentGuest.getPlusOne().equals("")) {
-			out.println("<h3>You do not currently have a Plus One registered</h3>");
-		} else {
-			out.println("<h3> Your Plus One," + currentGuest.getPlusOne() + "has ordered"
-					+ currentGuest.getPlusOneFoodType() + "</h3>");
+		out.println("<h3> Details for the " + currentGuest.getWeddingPartyName() + " wedding</h3>");
+		out.println("<h3> The " + weddingUser.getPetTypeGroom() + " groom: " + weddingUser.getPetNameGroom() + "</h3>");
+		out.println("<h3> The " + weddingUser.getPetTypeBride() + " bride: " + weddingUser.getPetNameBride() +"</h3>");
+		out.println("<h3> Current number of confimed guest: " + weddingUser.getNumberOfGuests() + "</h3>");
+		out.println("<h3> The day of the wedding is: " + dayOfWedding + "</h3>");
+		out.println("<h3> The venue of the wedding is: " + venue + "</h3>");
+		out.println("<h3> The caterer for the wedding will be: " + caterer + "</h3>");
+		if(currentGuest.getFoodType().equals("")) {
+			out.println("<h3> You have not ordered anything for dinner yet </h3>");
+		}else {
+			out.println("<h3> You have ordered " + currentGuest.getFoodType() + " for dinner</h3>");
 		}
+		
+		if(currentGuest.getFoodType().equals("")) {
+			if (currentGuest.getPlusOne().equals("")) {
+				out.println("<h3>You do not currently have a plus one registered</h3>");
+			}else {
+				out.println("<h3> Your plus one is " + currentGuest.getPlusOne());
+			}
+		}else {
+			if (currentGuest.getPlusOne().equals("")) {
+				out.println("<h3>You do not currently have a plus one registered</h3>");
+			} else {
+				out.println("<h3> Your Plus One, " + currentGuest.getPlusOne() + " has ordered "
+						+ currentGuest.getPlusOneFoodType() + "</h3>");
+			}
+		}
+		
 
-		out.println("<h3> The florist for the wedding will be:" + florist + "</h3>");
-		out.println("<h3> With music by:" + musician + "</h3>");
-		out.println("<h3> Professional photography by:" + photographer + "</h3>");
+		out.println("<h3> The florist for the wedding will be: " + florist + "</h3>");
+		out.println("<h3> With music by: " + musician + "</h3>");
+		out.println("<h3> Professional photography by: " + photographer + "</h3>");
 		
 		out.println("<form action=\"http://localhost:8080/sealTheDeal/guestHome/\">"
 				+ "<input type=\"submit\" value=\"Return\">" + "</form>");
